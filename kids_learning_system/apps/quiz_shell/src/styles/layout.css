@@ -1,0 +1,27 @@
+/* Layout: center app, constrain width, spacing */
+#app, .container {
+  max-width: 700px;
+  margin: 40px auto 0 auto;
+  padding: 0 1.5rem 2rem 1.5rem;
+  box-sizing: border-box;
+}
+
+.card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 16px 0 rgba(60,72,88,0.10), 0 1.5px 4px 0 rgba(60,72,88,0.08);
+  padding: 2rem 2rem 1.5rem 2rem;
+  margin-bottom: 2rem;
+  transition: box-shadow 0.2s;
+}
+
+.card:hover {
+  box-shadow: 0 4px 24px 0 rgba(60,72,88,0.13), 0 2px 8px 0 rgba(60,72,88,0.10);
+}
+
+.progress-indicator {
+  font-size: 1.1em;
+  color: #888;
+  margin-bottom: 1.2em;
+  text-align: right;
+}

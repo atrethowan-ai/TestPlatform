@@ -1,0 +1,20 @@
+{
+  "id": "attempt1",
+  "quizId": "example_runtime_quiz",
+  "childId": "child123",
+  "startedAt": "2026-03-12T10:00:00Z",
+  "completedAt": "2026-03-12T10:10:00Z",
+  "responses": [
+    {
+      "questionId": "q1",
+      "answer": "4",
+      "submittedAt": "2026-03-12T10:05:00Z",
+      "isCorrect": true
+    }
+  ],
+  "score": {
+    "total": 1,
+    "max": 1,
+    "breakdown": {"math_section": 1}
+  }
+}

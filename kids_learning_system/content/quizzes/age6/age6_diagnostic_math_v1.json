@@ -1,0 +1,105 @@
+{
+  "quizId": "age6_diagnostic_math_v1",
+  "ageBand": "age6",
+  "title": "Age 6 Math Diagnostic",
+  "description": "A short diagnostic quiz covering counting, addition, subtraction, patterns, and shapes.",
+  "estimatedDurationMinutes": 12,
+  "sections": [
+    {
+      "sectionId": "math_diagnostic",
+      "title": "Math Diagnostic",
+      "questions": [
+        {
+          "questionId": "q1",
+          "prompt": "4 + 3 = ?",
+          "type": "multiple_choice",
+          "options": ["7", "6", "8", "sandwich"],
+          "answerKey": "7",
+          "domain": "addition",
+          "points": 1
+        },
+        {
+          "questionId": "q2",
+          "prompt": "9 − 2 = ?",
+          "type": "multiple_choice",
+          "options": ["7", "6", "5", "banana"],
+          "answerKey": "7",
+          "domain": "subtraction",
+          "points": 1
+        },
+        {
+          "questionId": "q3",
+          "prompt": "What number comes after 15?",
+          "type": "multiple_choice",
+          "options": ["16", "14", "17", "25"],
+          "answerKey": "16",
+          "domain": "number_sense",
+          "points": 1
+        },
+        {
+          "questionId": "q4",
+          "prompt": "Which number is biggest?",
+          "type": "multiple_choice",
+          "options": ["7", "5", "9", "6"],
+          "answerKey": "9",
+          "domain": "number_sense",
+          "points": 1
+        },
+        {
+          "questionId": "q5",
+          "prompt": "Continue the pattern: 2, 4, 6, ?",
+          "type": "multiple_choice",
+          "options": ["8", "7", "10", "3"],
+          "answerKey": "8",
+          "domain": "patterns",
+          "points": 1
+        },
+        {
+          "questionId": "q6",
+          "prompt": "How many sides does a triangle have?",
+          "type": "multiple_choice",
+          "options": ["3", "4", "5", "10"],
+          "answerKey": "3",
+          "domain": "geometry",
+          "points": 1
+        },
+        {
+          "questionId": "q7",
+          "prompt": "What is 5 + 5?",
+          "type": "multiple_choice",
+          "options": ["10", "9", "11", "dinosaur"],
+          "answerKey": "10",
+          "domain": "addition",
+          "points": 1
+        },
+        {
+          "questionId": "q8",
+          "prompt": "Which number is smallest?",
+          "type": "multiple_choice",
+          "options": ["3", "8", "6", "9"],
+          "answerKey": "3",
+          "domain": "number_sense",
+          "points": 1
+        },
+        {
+          "questionId": "q9",
+          "prompt": "If you have 3 apples and get 2 more, how many apples do you have?",
+          "type": "multiple_choice",
+          "options": ["5", "4", "6", "lots of apples"],
+          "answerKey": "5",
+          "domain": "word_problem",
+          "points": 1
+        },
+        {
+          "questionId": "q10",
+          "prompt": "Which shape has four sides?",
+          "type": "multiple_choice",
+          "options": ["Square", "Triangle", "Circle", "Banana"],
+          "answerKey": "Square",
+          "domain": "geometry",
+          "points": 1
+        }
+      ]
+    }
+  ]
+}

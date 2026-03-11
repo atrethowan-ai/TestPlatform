@@ -1,0 +1,8 @@
+[project]
+name = "quiz_pipeline"
+version = "0.1.0"
+description = "Quiz authoring, analysis, and media pipeline for kids_learning_system"
+requires-python = ">=3.8"
+
+[tool.setuptools]
+packages = ["quiz_pipeline"]

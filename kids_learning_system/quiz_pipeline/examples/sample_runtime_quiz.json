@@ -1,0 +1,20 @@
+{
+  "id": "example_runtime_quiz",
+  "title": "Sample Runtime Quiz",
+  "ageGroup": "age9",
+  "sections": [
+    {
+      "id": "math_section",
+      "title": "Math Section",
+      "questions": [
+        {
+          "id": "q1",
+          "type": "multiple_choice",
+          "prompt": "What is 2 + 2?",
+          "choices": ["3", "4", "5"],
+          "answerKey": "4"
+        }
+      ]
+    }
+  ]
+}

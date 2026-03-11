@@ -1,0 +1,7 @@
+{
+  "id": "child123",
+  "quizId": "example_runtime_quiz",
+  "summary": "Child performed well on math questions.",
+  "weaknesses": ["word problems"],
+  "recommendations": ["practice more word problems"]
+}

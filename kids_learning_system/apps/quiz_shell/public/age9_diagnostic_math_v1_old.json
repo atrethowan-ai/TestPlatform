@@ -1,0 +1,31 @@
+{
+  "id": "age9_diagnostic_math_v1",
+  "title": "Math Diagnostic (Age 9)",
+  "ageGroup": "age9",
+  "sections": [
+    {
+      "id": "section1",
+      "title": "Basic Math",
+      "questions": [
+        {
+          "id": "q1",
+          "type": "multiple_choice",
+          "prompt": "What is 2 + 2?",
+          "choices": ["3", "4", "5"],
+          "answerKey": "4"
+        },
+        {
+          "id": "q2",
+          "type": "short_answer",
+          "prompt": "What is 10 minus 3?",
+          "answerKey": "7"
+        },
+        {
+          "id": "q3",
+          "type": "paragraph",
+          "prompt": "Explain why math is important."
+        }
+      ]
+    }
+  ]
+}
