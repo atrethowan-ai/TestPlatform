@@ -1,0 +1,22 @@
+{
+  "name": "quiz_builder",
+  "version": "0.1.0",
+  "main": "dist/cli.js",
+  "types": "dist/cli.d.ts",
+  "files": ["dist"],
+  "bin": {
+    "quiz-builder": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "zod": "^3.22.4",
+    "shared_types": "*"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "vitest": "^1.0.0"
+  }
+}

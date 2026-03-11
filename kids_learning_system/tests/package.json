@@ -1,0 +1,11 @@
+{
+  "name": "shared_types-tests",
+  "private": true,
+  "scripts": {
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "vitest": "^1.0.0",
+    "typescript": "^5.3.3"
+  }
+}

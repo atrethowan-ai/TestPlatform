@@ -1,0 +1,34 @@
+{
+  "id": "diagnostic_math_v1",
+  "title": "Math Diagnostic Quiz",
+  "ageGroup": "age6",
+  "sections": [
+    {
+      "id": "sec1",
+      "title": "Numbers",
+      "questions": [
+        {
+          "id": "q1",
+          "type": "multiple_choice",
+          "prompt": "What is 2 + 2?",
+          "choices": ["3", "4", "5", "Silly!"],
+          "answerKey": "4",
+          "distractors": ["3", "5", "Silly!"]
+        },
+        {
+          "id": "q2",
+          "type": "short_answer",
+          "prompt": "Write the number five as a digit.",
+          "answerKey": "5"
+        },
+        {
+          "id": "q3",
+          "type": "audio_short_answer",
+          "prompt": "Spell the word 'cat'.",
+          "mediaRef": "media/age6/cat.mp3",
+          "answerKey": "cat"
+        }
+      ]
+    }
+  ]
+}

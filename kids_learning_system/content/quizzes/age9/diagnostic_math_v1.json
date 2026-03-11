@@ -1,0 +1,57 @@
+{
+  "id": "diagnostic_math_v1",
+  "title": "Math Diagnostic Quiz (Age 9)",
+  "ageGroup": "age9",
+  "sections": [
+    {
+      "id": "sec1",
+      "title": "Arithmetic",
+      "questions": [
+        {
+          "id": "q1",
+          "type": "multiple_choice",
+          "prompt": "What is 7 + 5?",
+          "choices": ["11", "12", "13", "Silly!"],
+          "answerKey": "12",
+          "distractors": ["11", "13", "Silly!"],
+          "domain": "Arithmetic"
+        },
+        {
+          "id": "q2",
+          "type": "short_answer",
+          "prompt": "What is the digit in the tens place of 47?",
+          "answerKey": "4",
+          "domain": "Arithmetic"
+        },
+        {
+          "id": "q3",
+          "type": "paragraph",
+          "prompt": "Explain how you solve 15 - 7.",
+          "domain": "Arithmetic"
+        }
+      ]
+    },
+    {
+      "id": "sec2",
+      "title": "Fractions",
+      "questions": [
+        {
+          "id": "q4",
+          "type": "multiple_choice",
+          "prompt": "Which is greater: 1/2 or 1/3?",
+          "choices": ["1/2", "1/3", "Equal", "Silly!"],
+          "answerKey": "1/2",
+          "distractors": ["1/3", "Equal", "Silly!"],
+          "domain": "Fractions"
+        },
+        {
+          "id": "q5",
+          "type": "short_answer",
+          "prompt": "Write the fraction for half of a pizza.",
+          "answerKey": "1/2",
+          "domain": "Fractions"
+        }
+      ]
+    }
+  ]
+}

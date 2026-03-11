@@ -1,0 +1,15 @@
+{
+  "id": "writing_rubric_age6_v1",
+  "title": "Writing Rubric Age 6",
+  "criteria": [
+    {
+      "id": "clarity",
+      "description": "Clarity of expression",
+      "levels": [
+        { "level": "Excellent", "description": "Clear and easy to understand.", "score": 3 },
+        { "level": "Good", "description": "Mostly clear.", "score": 2 },
+        { "level": "Needs Work", "description": "Hard to understand.", "score": 1 }
+      ]
+    }
+  ]
+}

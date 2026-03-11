@@ -1,0 +1,17 @@
+# TypeScript Monorepo/Vite
+node_modules/
+dist/
+build/
+.vite/
+.env
+.env.*
+.DS_Store
+*.log
+coverage/
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.local
+exports/
+data/
+tmp/

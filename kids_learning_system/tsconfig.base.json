@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES2021",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@shared_types/*": ["packages/shared_types/src/*"],
+      "@quiz_domain/*": ["packages/quiz_domain/src/*"],
+      "@storage_indexeddb/*": ["packages/storage_indexeddb/src/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}

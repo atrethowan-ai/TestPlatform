@@ -1,0 +1,9 @@
+{
+  "name": "260311_TestPlatform",
+  "private": true,
+  "workspaces": [
+    "kids_learning_system/apps/*",
+    "kids_learning_system/packages/*",
+    "kids_learning_system/tools/*"
+  ]
+}

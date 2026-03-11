@@ -1,0 +1,11 @@
+{
+  "extends": "./kids_learning_system/tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": "./kids_learning_system",
+    "paths": {
+      "@shared_types/*": ["packages/shared_types/src/*"],
+      "@quiz_domain/*": ["packages/quiz_domain/src/*"],
+      "@storage_indexeddb/*": ["packages/storage_indexeddb/src/*"]
+    }
+  }
+}

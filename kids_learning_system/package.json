@@ -1,0 +1,9 @@
+{
+  "name": "kids_learning_system",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "tools/*"
+  ]
+}
