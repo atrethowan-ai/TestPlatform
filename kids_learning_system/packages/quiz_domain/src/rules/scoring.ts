@@ -1,4 +1,7 @@
-import type { Quiz, Attempt, Response, Score } from '@shared_types/src/types/Quiz';
+import type { Quiz } from '@shared_types/src/types/Quiz';
+import type { Attempt } from '@shared_types/src/types/Attempt';
+import type { Response } from '@shared_types/src/types/Response';
+import type { Score } from '@shared_types/src/types/Score';
 
 export function scoreAttempt(quiz: Quiz, attempt: Attempt): Score {
   // Simple auto-scoring for MCQ and short_answer

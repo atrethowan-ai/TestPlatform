@@ -1,10 +1,16 @@
 import { HomeView } from './presentation/views/HomeView';
+import { ChildSelectView } from './presentation/views/ChildSelectView';
 import { QuizSelectView } from './presentation/views/QuizSelectView';
 import { QuizSessionView } from './presentation/views/QuizSessionView';
 import { SessionCompleteView } from './presentation/views/SessionCompleteView';
 import { QuizLoaderService } from './application/services/QuizLoaderService';
 import { createQuizSession } from './application/services/QuizSessionService';
 import { scoreQuiz } from './application/services/ScoringService';
+import { ChildSelectionService } from './application/services/ChildSelectionService';
+import { AttemptRepository } from './application/services/AttemptRepository';
+import { HistoryView } from './presentation/views/HistoryView';
+import { AttemptDetailView } from './presentation/views/AttemptDetailView';
+
 
 const DEV_MODE = true; // Set to false for normal runtime
 
@@ -16,9 +22,12 @@ let state = {
   sectionIdx: 0,
   questionIdx: 0,
   result: null,
+  selectedChild: null,
 };
 
 const quizLoaderService = new QuizLoaderService();
+const childSelectionService = new ChildSelectionService(DEV_MODE);
+const attemptRepository = new AttemptRepository();
 
 const root = document.getElementById('app');
 if (!root) throw new Error('No #app element found');
@@ -27,12 +36,45 @@ async function render() {
   if (state.view === 'home') {
     root.innerHTML = await HomeView({ onStart: () => {} });
     document.getElementById('start-btn')?.addEventListener('click', () => {
-      state.view = 'select';
+      state.view = 'child-select';
       render();
     });
+  } else if (state.view === 'child-select') {
+    const children = childSelectionService.getChildren();
+    const selectedChild = childSelectionService.getSelectedChild();
+    root.innerHTML = ChildSelectView({
+      children,
+      selectedChildId: selectedChild?.childId,
+      devMode: DEV_MODE,
+      onSelect: (childId: string) => {
+        childSelectionService.setSelectedChild(childId);
+        state.selectedChild = childSelectionService.getSelectedChild();
+        state.view = 'select';
+        render();
+      },
+    });
+    document.querySelectorAll('.child-select-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const childId = (e.target as HTMLElement).getAttribute('data-child-id');
+        if (!childId) return;
+        childSelectionService.setSelectedChild(childId);
+        state.selectedChild = childSelectionService.getSelectedChild();
+        state.view = 'select';
+        render();
+      });
+    });
   } else if (state.view === 'select') {
-    const html = await QuizSelectView({ loader: quizLoaderService, onSelect: () => {} });
-    root.innerHTML = html;
+    // Block quiz selection if no child selected
+    if (!state.selectedChild) {
+      root.innerHTML = `<div class="container"><h2>No Child Selected</h2><div style="color:red;">Please select a child before starting a quiz.</div><button id="select-child-btn">Select Child</button></div>`;
+      document.getElementById('select-child-btn')?.addEventListener('click', () => {
+        state.view = 'child-select';
+        render();
+      });
+      return;
+    }
+    const html = await QuizSelectView({ loader: quizLoaderService, selectedChild: state.selectedChild, onSelect: () => {} });
+    root.innerHTML = `<div style="margin-bottom:1em;color:#444;">Current Child: <b>${state.selectedChild.displayName}</b></div>` + html;
     document.querySelectorAll('.quiz-select-btn').forEach(btn => {
       btn.addEventListener('click', async (e) => {
         const path = (e.target as HTMLElement).getAttribute('data-path');
@@ -63,22 +105,40 @@ async function render() {
     const session = state.session;
     const sectionIdx = state.sectionIdx;
     const questionIdx = state.questionIdx;
-    root.innerHTML = QuizSessionView({
-      quiz,
-      sectionIdx,
-      questionIdx,
-      answers: session.answers,
-    });
+    const child = state.selectedChild;
+    root.innerHTML = `<div style="margin-bottom:1em;color:#444;">Current Child: <b>${child.displayName}</b></div>` +
+      QuizSessionView({
+        quiz,
+        sectionIdx,
+        questionIdx,
+        answers: session.answers,
+      });
     const form = document.getElementById('question-form');
     if (form) {
-      form.addEventListener('submit', (e) => {
+      form.addEventListener('submit', async (e) => {
         e.preventDefault();
         saveAnswer();
         state.result = scoreQuiz(quiz, session.answers);
+        // Save attempt to IndexedDB
+        const attempt = {
+          attemptId: `${child.childId}_${quiz.id}_${Date.now()}`,
+          quizId: quiz.id,
+          childId: child.childId,
+          startedAt: session.startedAt,
+          completedAt: new Date().toISOString(),
+          status: 'complete',
+          responses: Object.fromEntries(session.answers.entries()),
+          autoScore: state.result,
+        };
+        try {
+          await attemptRepository.saveAttempt(attempt);
+        } catch (err) {
+          alert('Failed to save attempt: ' + err);
+        }
+        state.lastAttemptId = attempt.attemptId;
         state.view = 'complete';
         render();
       });
-      // Only update answer on blur/change, not every keystroke
       form.querySelectorAll('input[name="answer"],textarea[name="answer"]').forEach(input => {
         input.addEventListener('blur', saveAnswer);
         input.addEventListener('change', saveAnswer);
@@ -95,13 +155,74 @@ async function render() {
       render();
     });
   } else if (state.view === 'complete') {
-    root.innerHTML = SessionCompleteView({ result: state.result });
+    const child = state.selectedChild;
+    root.innerHTML = `<div style="margin-bottom:1em;color:#444;">Current Child: <b>${child.displayName}</b></div>` +
+      SessionCompleteView({ result: state.result });
     document.getElementById('restart-btn')?.addEventListener('click', () => {
       state.view = 'home';
       state.quiz = null;
       state.session = null;
       state.result = null;
       render();
+    });
+    // Add history and view attempt buttons
+    const btns = document.createElement('div');
+    btns.innerHTML = `<button id="view-history-btn">View History</button> <button id="view-attempt-btn">View This Attempt</button>`;
+    root.querySelector('.container')?.appendChild(btns);
+    document.getElementById('view-history-btn')?.addEventListener('click', () => {
+      state.view = 'history';
+      render();
+    });
+    document.getElementById('view-attempt-btn')?.addEventListener('click', () => {
+      state.view = 'attempt-detail';
+      render();
+    });
+  } else if (state.view === 'history') {
+    const child = state.selectedChild;
+    HistoryView({
+      child,
+      repo: attemptRepository,
+      onSelectAttempt: (attemptId: string) => {
+        state.selectedAttemptId = attemptId;
+        state.view = 'attempt-detail';
+        render();
+      },
+      devMode: DEV_MODE,
+      onClearTestUser: async () => {
+        await attemptRepository.clearTestUserHistory();
+        render();
+      },
+    }).then(html => {
+      root.innerHTML = `<div style="margin-bottom:1em;color:#444;">Current Child: <b>${child.displayName}</b></div>` + html;
+      document.querySelectorAll('.attempt-detail-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const attemptId = (e.target as HTMLElement).getAttribute('data-attempt-id');
+          if (!attemptId) return;
+          state.selectedAttemptId = attemptId;
+          state.view = 'attempt-detail';
+          render();
+        });
+      });
+      if (DEV_MODE && child.childId === 'test-user') {
+        document.getElementById('clear-test-user-btn')?.addEventListener('click', async () => {
+          await attemptRepository.clearTestUserHistory();
+          render();
+        });
+      }
+    });
+  } else if (state.view === 'attempt-detail') {
+    const child = state.selectedChild;
+    const attemptId = state.selectedAttemptId;
+    AttemptDetailView({
+      attemptId,
+      repo: attemptRepository,
+      child,
+    }).then(html => {
+      root.innerHTML = html + `<div style="margin-top:1em;"><button id="back-to-history-btn">Back to History</button></div>`;
+      document.getElementById('back-to-history-btn')?.addEventListener('click', () => {
+        state.view = 'history';
+        render();
+      });
     });
   }
 }

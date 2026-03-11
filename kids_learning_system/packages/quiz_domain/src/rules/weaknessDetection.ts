@@ -1,4 +1,5 @@
-import type { Attempt, Quiz } from '@shared_types/src/types/Quiz';
+import type { Quiz } from '@shared_types/src/types/Quiz';
+import type { Attempt } from '@shared_types/src/types/Attempt';
 
 export function detectWeaknesses(quiz: Quiz, attempt: Attempt): string[] {
   // Example: return IDs of questions answered incorrectly

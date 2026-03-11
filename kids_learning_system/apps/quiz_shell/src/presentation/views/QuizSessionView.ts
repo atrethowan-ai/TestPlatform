@@ -15,13 +15,19 @@ export function QuizSessionView({
   const question = section.questions[questionIdx];
   let inputHtml = '';
   if (question.type === 'multiple_choice') {
-    inputHtml = question.choices
-      ?.map(
-        (c: string) => `<label><input type="radio" name="answer" value="${c}" ${
-          answers.get(question.id) === c ? 'checked' : ''
-        } /> ${c}</label><br />`,
-      )
-      .join('') ?? '';
+    inputHtml = `<div class="quiz-options">
+      ${question.choices
+        ?.map(
+          (c: string) => {
+            const selected = answers.get(question.id) === c;
+            return `<label class="quiz-option-row${selected ? ' selected' : ''}">
+              <input type="radio" name="answer" value="${c}" ${selected ? 'checked' : ''} />
+              <span>${c}</span>
+            </label>`;
+          }
+        )
+        .join('') ?? ''}
+    </div>`;
   } else if (question.type === 'short_answer') {
     inputHtml = `<input type="text" name="answer" value="${answers.get(question.id) ?? ''}" />`;
   } else if (question.type === 'paragraph') {
@@ -29,21 +35,19 @@ export function QuizSessionView({
   }
   const isFirst = sectionIdx === 0 && questionIdx === 0;
   const isLast = sectionIdx === quiz.sections.length - 1 && questionIdx === section.questions.length - 1;
+  const totalQuestions = section.questions.length;
+  const progress = `Question ${questionIdx + 1} of ${totalQuestions}`;
   return `<div class="container">
-    <div style="color:#888;font-size:0.9em;margin-bottom:1em;">
-      <div>Quiz ID: ${quiz.id}, Title: ${quiz.title}</div>
-      <div>Section: ${sectionIdx + 1}/${quiz.sections.length}, Question: ${questionIdx + 1}/${section.questions.length}</div>
-      <div>Session started: ${(quiz as any).startedAt || ''}</div>
-    </div>
-    <h2>${section.title}</h2>
-    <div class="question-card">
-      <div><b>Q:</b> ${question.prompt}</div>
+    <div class="card">
+      <div class="progress-indicator">${progress}</div>
+      <h2 style="margin-bottom:0.7em;">${section.title}</h2>
+      <div style="font-size:1.15em;margin-bottom:1.2em;"><b>Q:</b> ${question.prompt}</div>
       <form id="question-form">
         ${inputHtml}
-        <div style="margin-top:1rem;">
-          <button type="button" id="prev-btn" ${isFirst ? 'disabled' : ''}>Previous</button>
-          ${!isLast ? `<button type="button" id="next-btn">Next</button>` : ''}
-          ${isLast ? `<button type="submit" id="submit-btn">Submit Quiz</button>` : ''}
+        <div style="margin-top:1.5rem;display:flex;gap:0.7em;">
+          <button type="button" id="prev-btn" class="secondary" ${isFirst ? 'disabled' : ''}>Previous</button>
+          ${!isLast ? `<button type="button" id="next-btn" class="primary">Next</button>` : ''}
+          ${isLast ? `<button type="submit" id="submit-btn" class="primary">Submit Quiz</button>` : ''}
         </div>
       </form>
     </div>

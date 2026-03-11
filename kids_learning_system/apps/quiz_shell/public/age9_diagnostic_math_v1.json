@@ -1,30 +1,22 @@
 {
   "id": "age9_diagnostic_math_v1",
-  "title": "Math Diagnostic (Age 9)",
+  "title": "Age 9 Math Diagnostic",
   "ageGroup": "age9",
   "sections": [
     {
-      "id": "section1",
-      "title": "Basic Math",
+      "id": "math_diagnostic",
+      "title": "Math Diagnostic",
       "questions": [
-        {
-          "id": "q1",
-          "type": "multiple_choice",
-          "prompt": "What is 2 + 2?",
-          "choices": ["3", "4", "5"],
-          "answerKey": "4"
-        },
-        {
-          "id": "q2",
-          "type": "short_answer",
-          "prompt": "What is 10 minus 3?",
-          "answerKey": "7"
-        },
-        {
-          "id": "q3",
-          "type": "paragraph",
-          "prompt": "Explain why math is important."
-        }
+        { "id": "q1", "type": "multiple_choice", "prompt": "347 + 285 = ?", "choices": ["632", "522", "612", "banana"], "answerKey": "632" },
+        { "id": "q2", "type": "multiple_choice", "prompt": "920 − 468 = ?", "choices": ["452", "462", "472", "1000"], "answerKey": "452" },
+        { "id": "q3", "type": "multiple_choice", "prompt": "6 × 7 = ?", "choices": ["42", "36", "48", "potato"], "answerKey": "42" },
+        { "id": "q4", "type": "multiple_choice", "prompt": "42 ÷ 6 = ?", "choices": ["7", "6", "8", "12"], "answerKey": "7" },
+        { "id": "q5", "type": "multiple_choice", "prompt": "Which fraction is larger?", "choices": ["3/4", "2/3", "They are equal", "pizza"], "answerKey": "3/4" },
+        { "id": "q6", "type": "multiple_choice", "prompt": "1/2 + 1/4 = ?", "choices": ["3/4", "2/4", "1/3", "5/4"], "answerKey": "3/4" },
+        { "id": "q7", "type": "multiple_choice", "prompt": "A basket has 8 apples. There are 5 baskets. How many apples are there?", "choices": ["40", "35", "45", "apples everywhere"], "answerKey": "40" },
+        { "id": "q8", "type": "multiple_choice", "prompt": "What number comes next in the pattern? 3, 6, 9, 12, ?", "choices": ["15", "18", "21", "dinosaur"], "answerKey": "15" },
+        { "id": "q9", "type": "multiple_choice", "prompt": "Which number is closest to 500?", "choices": ["498", "450", "520", "200"], "answerKey": "498" },
+        { "id": "q10", "type": "multiple_choice", "prompt": "Which number is divisible by 5?", "choices": ["45", "43", "41", "47"], "answerKey": "45" }
       ]
     }
   ]

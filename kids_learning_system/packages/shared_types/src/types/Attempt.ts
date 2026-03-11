@@ -1,3 +1,5 @@
+import { Score } from './Score';
+
 export interface Attempt {
   id: string;
   quizId: string;
