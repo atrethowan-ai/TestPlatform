@@ -27,6 +27,8 @@ export function QuizSessionView({
   } else if (question.type === 'paragraph') {
     inputHtml = `<textarea name="answer">${answers.get(question.id) ?? ''}</textarea>`;
   }
+  const isFirst = sectionIdx === 0 && questionIdx === 0;
+  const isLast = sectionIdx === quiz.sections.length - 1 && questionIdx === section.questions.length - 1;
   return `<div class="container">
     <div style="color:#888;font-size:0.9em;margin-bottom:1em;">
       <div>Quiz ID: ${quiz.id}, Title: ${quiz.title}</div>
@@ -39,9 +41,9 @@ export function QuizSessionView({
       <form id="question-form">
         ${inputHtml}
         <div style="margin-top:1rem;">
-          <button type="button" id="prev-btn">Previous</button>
-          <button type="button" id="next-btn">Next</button>
-          <button type="submit" id="submit-btn">Submit Quiz</button>
+          <button type="button" id="prev-btn" ${isFirst ? 'disabled' : ''}>Previous</button>
+          ${!isLast ? `<button type="button" id="next-btn">Next</button>` : ''}
+          ${isLast ? `<button type="submit" id="submit-btn">Submit Quiz</button>` : ''}
         </div>
       </form>
     </div>

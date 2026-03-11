@@ -6,6 +6,8 @@ import { QuizLoaderService } from './application/services/QuizLoaderService';
 import { createQuizSession } from './application/services/QuizSessionService';
 import { scoreQuiz } from './application/services/ScoringService';
 
+const DEV_MODE = true; // Set to false for normal runtime
+
 let state = {
   view: 'home',
   quizList: [],
@@ -46,10 +48,10 @@ async function render() {
           return;
         }
         const quiz = quizOrError as any;
-        console.log('[App] Quiz loaded:', quiz.id);
+        if (DEV_MODE) console.log('[App] Quiz loaded:', quiz.id);
         state.quiz = quiz;
         state.session = createQuizSession(quiz);
-        console.log('[App] Session created:', state.session);
+        if (DEV_MODE) console.log('[App] Session created:', state.session);
         state.sectionIdx = 0;
         state.questionIdx = 0;
         state.view = 'session';
@@ -76,7 +78,9 @@ async function render() {
         state.view = 'complete';
         render();
       });
+      // Only update answer on blur/change, not every keystroke
       form.querySelectorAll('input[name="answer"],textarea[name="answer"]').forEach(input => {
+        input.addEventListener('blur', saveAnswer);
         input.addEventListener('change', saveAnswer);
       });
     }
