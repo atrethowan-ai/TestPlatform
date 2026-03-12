@@ -1,7 +1,8 @@
 {
-  "id": "example_authoring_quiz",
-  "title": "Sample Authoring Quiz",
+  "id": "sample_authoring_quiz_v1",
+  "title": "Sample Authoring Quiz (Canonical)",
   "ageGroup": "age9",
+  "description": "A sample quiz demonstrating all supported authoring question types.",
   "sections": [
     {
       "id": "math_section",
@@ -13,13 +14,37 @@
           "prompt": "What is 2 + 2?",
           "choices": ["3", "4", "5"],
           "answerKey": "4",
+          "domain": "arithmetic",
           "audioText": "What is two plus two?",
           "ttsStyle": "child_friendly",
           "imageSpec": "simple equation"
+        },
+        {
+          "id": "q2",
+          "type": "short_answer",
+          "prompt": "What is the capital of France?",
+          "answerKey": "Paris",
+          "domain": "geography"
+        },
+        {
+          "id": "q3",
+          "type": "paragraph",
+          "prompt": "Explain why the sky is blue.",
+          "answerKey": "Sample rubric answer.",
+          "rubricRef": "writing_rubric_age9_v1",
+          "domain": "science"
+        },
+        {
+          "id": "q4",
+          "type": "audio_short_answer",
+          "prompt": "Spell the word 'elephant' after listening to the audio.",
+          "answerKey": "elephant",
+          "audioText": "Please spell the word: elephant.",
+          "ttsStyle": "neutral",
+          "domain": "spelling"
         }
       ]
     }
   ],
-  "description": "Sample quiz for authoring.",
-  "estimatedDurationMinutes": 5
+  "estimatedDurationMinutes": 10
 }
