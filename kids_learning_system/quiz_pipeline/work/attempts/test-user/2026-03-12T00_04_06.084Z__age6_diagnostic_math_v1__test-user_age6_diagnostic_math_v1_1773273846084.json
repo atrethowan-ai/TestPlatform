@@ -1,0 +1,26 @@
+{
+  "attemptId": "test-user_age6_diagnostic_math_v1_1773273846084",
+  "childId": "test-user",
+  "quizId": "age6_diagnostic_math_v1",
+  "completedAt": "2026-03-12T00:04:06.084Z",
+  "responses": {
+    "q1": "7",
+    "q2": "banana",
+    "q3": "17",
+    "q4": "5",
+    "q5": "",
+    "q6": "10",
+    "q7": "11",
+    "q8": "8",
+    "q9": "5",
+    "q10": "Circle"
+  },
+  "score": {
+    "correct": 2,
+    "incorrect": 8,
+    "ungraded": 0,
+    "total": 10,
+    "domainBreakdown": {}
+  },
+  "metadata": null
+}

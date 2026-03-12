@@ -124,14 +124,27 @@ async function render() {
           attemptId: `${child.childId}_${quiz.id}_${Date.now()}`,
           quizId: quiz.id,
           childId: child.childId,
-          startedAt: session.startedAt,
           completedAt: new Date().toISOString(),
-          status: 'complete',
           responses: Object.fromEntries(session.answers.entries()),
-          autoScore: state.result,
+          score: state.result,
+          // Optionally add metadata if needed
         };
         try {
           await attemptRepository.saveAttempt(attempt);
+          // --- Send attempt to backend API ---
+          try {
+            const resp = await fetch('/api/attempts', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(attempt),
+            });
+            if (!resp.ok) {
+              const err = await resp.json().catch(() => ({}));
+              throw new Error(err.detail || 'Failed to save attempt to backend');
+            }
+          } catch (apiErr) {
+            alert('Failed to send attempt to backend: ' + apiErr);
+          }
         } catch (err) {
           alert('Failed to save attempt: ' + err);
         }

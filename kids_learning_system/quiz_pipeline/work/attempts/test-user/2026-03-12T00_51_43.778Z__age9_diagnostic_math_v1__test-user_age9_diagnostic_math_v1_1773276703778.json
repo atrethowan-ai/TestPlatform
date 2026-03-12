@@ -1,0 +1,26 @@
+{
+  "attemptId": "test-user_age9_diagnostic_math_v1_1773276703778",
+  "childId": "test-user",
+  "quizId": "age9_diagnostic_math_v1",
+  "completedAt": "2026-03-12T00:51:43.778Z",
+  "responses": {
+    "q1": "banana",
+    "q2": "1000",
+    "q3": "potato",
+    "q4": "12",
+    "q5": "pizza",
+    "q6": "5/4",
+    "q7": "apples everywhere",
+    "q8": "dinosaur",
+    "q9": "200",
+    "q10": "47"
+  },
+  "score": {
+    "correct": 0,
+    "incorrect": 10,
+    "ungraded": 0,
+    "total": 10,
+    "domainBreakdown": {}
+  },
+  "metadata": null
+}

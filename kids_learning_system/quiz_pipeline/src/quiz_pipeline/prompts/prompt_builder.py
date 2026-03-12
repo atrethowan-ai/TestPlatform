@@ -1,20 +1,25 @@
-def build_prompt(child_summary):
-    child_id = child_summary.get('childId', 'unknown')
-    quiz_id = child_summary.get('quizId', 'unknown')
-    domain_stats = child_summary.get('domainStats', {})
-    weak_domains = child_summary.get('weakDomains', [])
+def build_prompt(summary, quiz=None):
+    child_id = summary.get('childId', 'unknown')
+    quiz_id = summary.get('quizId', 'unknown')
+    completed_at = summary.get('completedAt', 'unknown')
+    total_correct = summary.get('totalCorrect', 0)
+    total_questions = summary.get('totalQuestions', 0)
+    percentage = summary.get('percentage', 0)
+    questions = summary.get('questions', [])
+    quiz_title = quiz.get('title') if quiz else quiz_id
 
-    summary_lines = [f"Child ID: {child_id}", f"Quiz ID: {quiz_id}", "", "Domain Performance:"]
-    for domain, stats in domain_stats.items():
-        summary_lines.append(f"- {domain}: {stats['correct']} correct / {stats['total']} total")
-
-    summary_lines.append("")
-    summary_lines.append("Recommended Focus Areas:")
-    if weak_domains:
-        for domain in weak_domains:
-            summary_lines.append(f"- {domain}")
-    else:
-        summary_lines.append("- None (all domains mastered)")
-
-    prompt = "\n".join(summary_lines)
-    return prompt
+    lines = [
+        f"User: {child_id}",
+        f"Date: {completed_at}",
+        f"Quiz: {quiz_title}",
+        f"",
+        f"Score: {total_correct} / {total_questions} ({percentage:.0f}%)",
+        f"",
+        f"Answers:"
+    ]
+    for idx, q in enumerate(questions, 1):
+        lines.append(f"{idx}. {q['prompt']}")
+        lines.append(f"   Your Answer: {q['childAnswer']}")
+        lines.append(f"   Correct Answer: {q['correctAnswer']}")
+        lines.append(f"   Result: {'Correct' if q['isCorrect'] else 'Incorrect'}\n")
+    return "\n".join(lines)

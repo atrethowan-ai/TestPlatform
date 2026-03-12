@@ -1,0 +1,26 @@
+{
+  "attemptId": "test-user_age6_diagnostic_math_v1_1773275677459",
+  "childId": "test-user",
+  "quizId": "age6_diagnostic_math_v1",
+  "completedAt": "2026-03-12T00:34:37.459Z",
+  "responses": {
+    "q1": "sandwich",
+    "q2": "",
+    "q3": "",
+    "q4": "",
+    "q5": "",
+    "q6": "",
+    "q7": "",
+    "q8": "",
+    "q9": "",
+    "q10": ""
+  },
+  "score": {
+    "correct": 0,
+    "incorrect": 10,
+    "ungraded": 0,
+    "total": 10,
+    "domainBreakdown": {}
+  },
+  "metadata": null
+}
