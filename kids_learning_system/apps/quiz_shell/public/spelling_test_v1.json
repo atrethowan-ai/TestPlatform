@@ -1,0 +1,34 @@
+{
+  "id": "spelling_test_v1",
+  "title": "Spelling Test (E2E Test Quiz)",
+  "ageGroup": "6-7",
+  "sections": [
+    {
+      "id": "sec1",
+      "title": "Section 1 - Mixed Questions",
+      "questions": [
+        {
+          "id": "mc1",
+          "type": "multiple_choice",
+          "prompt": "What colour is the sky on a clear day?",
+          "domain": "general",
+          "answerKey": "Blue",
+          "choices": [
+            "Blue",
+            "Red",
+            "Green",
+            "Yellow"
+          ]
+        },
+        {
+          "id": "spell1",
+          "type": "audio_short_answer",
+          "prompt": "Listen to the word and type the correct spelling.",
+          "domain": "spelling",
+          "answerKey": "platform",
+          "mediaRef": "media/spelling/spelling_test_v1/spell1.mp3"
+        }
+      ]
+    }
+  ]
+}

@@ -1,18 +1,33 @@
-# TypeScript Monorepo/Vite
-node_modules/
 dist/
 build/
-.vite/
-.env
-.env.*
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# VS Code
+.vscode/
+
+# OS junk
 .DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+
+# build outputs
+dist/
+build/
+
+# test output
+work/
+media/
+
+# logs
 *.log
-coverage/
-!.vscode/settings.json
-.vscode/*
-!.vscode/extensions.json
-.idea/
-*.local
-exports/
-data/
-tmp/

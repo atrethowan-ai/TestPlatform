@@ -5,6 +5,7 @@ export class QuizLoaderService {
   quizFiles: string[] = [
     '/age6_diagnostic_math_v1.json',
     '/age9_diagnostic_math_v1.json',
+    '/spelling_test_v1.json',
   ];
 
   async loadAllQuizzes(): Promise<any[]> {

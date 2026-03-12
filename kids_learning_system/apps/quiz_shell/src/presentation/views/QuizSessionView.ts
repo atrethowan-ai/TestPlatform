@@ -32,6 +32,11 @@ export function QuizSessionView({
     inputHtml = `<input type="text" name="answer" value="${answers.get(question.id) ?? ''}" />`;
   } else if (question.type === 'paragraph') {
     inputHtml = `<textarea name="answer">${answers.get(question.id) ?? ''}</textarea>`;
+  } else if (question.type === 'audio_short_answer') {
+    inputHtml = `<div class="audio-question">
+      <audio controls src="${(question as any).mediaRef || ''}">Your browser does not support audio.</audio>
+      <input type="text" name="answer" value="${answers.get(question.id) ?? ''}" placeholder="Type your spelling here" />
+    </div>`;
   }
   // Flatten all questions for progress
   const allQuestions = quiz.sections.flatMap(s => s.questions);

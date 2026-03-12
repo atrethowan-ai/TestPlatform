@@ -1,0 +1,22 @@
+{
+  "id": "spelling_review_v1",
+  "title": "Spelling Review",
+  "ageGroup": "age6",
+  "sections": [
+    {
+      "id": "section1",
+      "title": "Spelling",
+      "questions": [
+        {
+          "id": "q3",
+          "type": "audio_short_answer",
+          "prompt": "Type the word you hear.",
+          "answerKey": ["platform"],
+          "audioText": "platform",
+          "ttsStyle": "clear_spelling",
+          "domain": "spelling"
+        }
+      ]
+    }
+  ]
+}

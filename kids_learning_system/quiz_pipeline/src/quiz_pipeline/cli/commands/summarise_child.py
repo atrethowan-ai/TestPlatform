@@ -19,9 +19,19 @@ def main(child: str = typer.Option(..., '--child', help='Child ID'), input: str 
         return
     summary = summarise_attempts(attempt, quiz_data)
     print("\n=== Readable Summary ===")
-    for domain, stats in summary['domainStats'].items():
-        print(f"Domain: {domain} | Correct: {stats['correct']} | Incorrect: {stats['incorrect']} | Total: {stats['total']}")
-    print("\nWeak Domains:", ', '.join(summary['weakDomains']) or 'None')
+    print(f"Child:    {summary.get('childId')}")
+    print(f"Quiz:     {summary.get('quizId')}")
+    print(f"Date:     {summary.get('completedAt')}")
+    print(f"Score:    {summary.get('totalCorrect')} / {summary.get('totalQuestions')} ({summary.get('percentage', 0):.1f}%)")
+    print(f"Correct:  {summary.get('totalCorrect')}")
+    print(f"Incorrect:{summary.get('totalIncorrect')}")
+    print("\nQuestion-by-question review:")
+    for i, q in enumerate(summary.get('questions', []), 1):
+        result = 'CORRECT' if q.get('isCorrect') else 'INCORRECT'
+        print(f"  Q{i}: {q.get('prompt', '')}")
+        print(f"      Child answer:   {q.get('childAnswer')}")
+        print(f"      Correct answer: {q.get('correctAnswer')}")
+        print(f"      Result:         {result}")
     print("\n=== JSON Summary ===")
     print(json.dumps(summary, indent=2))
     print("\n=== LLM Prompt ===")

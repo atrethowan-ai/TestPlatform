@@ -30,19 +30,26 @@ This document describes how each authoring question type is processed by the qui
 - **Runtime Output:**
   - type, prompt, rubricRef (if present)
 
+
+
 ## 4. audio_short_answer
 - **Validation:**
   - Must have `answerKey` (string or array)
-  - Must have `audioText` (string)
-  - Optional: `ttsStyle`
+  - Must have `audioText` (string, required for TTS)
+  - Optional: `ttsStyle`, `voice`
 - **Processing:**
-  - Pipeline uses `audioText` and `ttsStyle` to generate TTS audio.
-  - If TTS succeeds: writes audio file, sets `mediaRef` to file path, removes authoring-only fields.
-  - If `audioText` is missing: validation fails.
-  - If TTS fails: pipeline logs error, quiz is not published.
-  - If `ttsStyle` is omitted: default style is used.
+  - Pipeline detects audio_short_answer questions during packaging
+  - Validates required fields
+  - Preprocesses fields, builds spoken script (style: `default`, `clear_spelling`, etc.)
+  - Calls TTS adapter to generate MP3 (see [TTS_INTEGRATION.md](TTS_INTEGRATION.md))
+  - Writes MP3 to `media/spelling/{quiz_id}/{question_id}.mp3`
+  - Injects `mediaRef` into runtime question
+  - Removes authoring-only fields (`audioText`, `ttsStyle`)
+  - If `audioText` is missing: validation fails
+  - If TTS fails: pipeline logs error, quiz is not published
+  - If `ttsStyle` is omitted: default style is used
 - **Runtime Output:**
-  - type, prompt, answerKey, mediaRef
+  - type, prompt, answerKey, mediaRef (MP3 file path)
 
 ## Future Types
 - `image_short_answer`, `image_multiple_choice` (scaffolded):
