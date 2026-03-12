@@ -1,0 +1,77 @@
+{
+  "id": "spelling_age9_v2",
+  "title": "Spelling Practice (Age 9), Level 2",
+  "ageGroup": "age9",
+  "sections": [
+    {
+      "id": "spelling_section",
+      "title": "Spelling",
+      "questions": [
+        {
+          "id": "q1",
+          "type": "audio_short_answer",
+          "prompt": "Type the word you hear.",
+          "domain": "spelling",
+          "answerKey": "platform",
+          "mediaRef": "media/spelling/spelling_age9_v2/q1.mp3"
+        },
+        {
+          "id": "q2",
+          "type": "audio_short_answer",
+          "prompt": "Type the word you hear.",
+          "domain": "spelling",
+          "answerKey": "because",
+          "mediaRef": "media/spelling/spelling_age9_v2/q2.mp3"
+        },
+        {
+          "id": "q3",
+          "type": "audio_short_answer",
+          "prompt": "Type the word you hear.",
+          "domain": "spelling",
+          "answerKey": "important",
+          "mediaRef": "media/spelling/spelling_age9_v2/q3.mp3"
+        },
+        {
+          "id": "q4",
+          "type": "audio_short_answer",
+          "prompt": "Type the word you hear.",
+          "domain": "spelling",
+          "answerKey": "different",
+          "mediaRef": "media/spelling/spelling_age9_v2/q4.mp3"
+        },
+        {
+          "id": "q5",
+          "type": "audio_short_answer",
+          "prompt": "Type the word you hear.",
+          "domain": "spelling",
+          "answerKey": "elephant",
+          "mediaRef": "media/spelling/spelling_age9_v2/q5.mp3"
+        },
+        {
+          "id": "q6",
+          "type": "audio_short_answer",
+          "prompt": "Type the word you hear.",
+          "domain": "spelling",
+          "answerKey": "another",
+          "mediaRef": "media/spelling/spelling_age9_v2/q6.mp3"
+        },
+        {
+          "id": "q7",
+          "type": "audio_short_answer",
+          "prompt": "Type the word you hear.",
+          "domain": "spelling",
+          "answerKey": "thought",
+          "mediaRef": "media/spelling/spelling_age9_v2/q7.mp3"
+        },
+        {
+          "id": "q8",
+          "type": "audio_short_answer",
+          "prompt": "Type the word you hear.",
+          "domain": "spelling",
+          "answerKey": "favourite",
+          "mediaRef": "media/spelling/spelling_age9_v2/q8.mp3"
+        }
+      ]
+    }
+  ]
+}

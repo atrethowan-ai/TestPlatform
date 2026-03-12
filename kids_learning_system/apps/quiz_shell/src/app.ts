@@ -23,6 +23,8 @@ let state = {
   questionIdx: 0,
   result: null,
   selectedChild: null,
+  lastAttemptId: null,
+  selectedAttemptId: null,
 };
 
 const quizLoaderService = new QuizLoaderService();
@@ -112,6 +114,7 @@ async function render() {
         sectionIdx,
         questionIdx,
         answers: session.answers,
+        readOnly: false,
       });
     const form = document.getElementById('question-form');
     if (form) {
@@ -156,6 +159,14 @@ async function render() {
         input.addEventListener('blur', saveAnswer);
         input.addEventListener('change', saveAnswer);
       });
+      form.querySelectorAll('input[name="answer"]').forEach(input => {
+        input.addEventListener('keydown', (e: Event) => {
+          const keyEvent = e as KeyboardEvent;
+          if (keyEvent.key === 'Enter') {
+            keyEvent.preventDefault();
+          }
+        });
+      });
     }
     document.getElementById('next-btn')?.addEventListener('click', () => {
       saveAnswer();
@@ -171,6 +182,12 @@ async function render() {
     const child = state.selectedChild;
     root.innerHTML = `<div style="margin-bottom:1em;color:#444;">Current Child: <b>${child.displayName}</b></div>` +
       SessionCompleteView({ result: state.result });
+    document.getElementById('review-btn')?.addEventListener('click', () => {
+      state.sectionIdx = 0;
+      state.questionIdx = 0;
+      state.view = 'review';
+      render();
+    });
     document.getElementById('restart-btn')?.addEventListener('click', () => {
       state.view = 'home';
       state.quiz = null;
@@ -178,16 +195,28 @@ async function render() {
       state.result = null;
       render();
     });
-    // Add history and view attempt buttons
-    const btns = document.createElement('div');
-    btns.innerHTML = `<button id="view-history-btn">View History</button> <button id="view-attempt-btn">View This Attempt</button>`;
-    root.querySelector('.container')?.appendChild(btns);
-    document.getElementById('view-history-btn')?.addEventListener('click', () => {
-      state.view = 'history';
+  } else if (state.view === 'review') {
+    const child = state.selectedChild;
+    root.innerHTML = `<div style="margin-bottom:1em;color:#444;">Current Child: <b>${child.displayName}</b></div>` +
+      QuizSessionView({
+        quiz: state.quiz,
+        sectionIdx: state.sectionIdx,
+        questionIdx: state.questionIdx,
+        answers: state.session.answers,
+        readOnly: true,
+        reviewResultByQuestionId: state.result?.resultByQuestionId,
+      });
+
+    document.getElementById('next-btn')?.addEventListener('click', () => {
+      nextQuestion();
       render();
     });
-    document.getElementById('view-attempt-btn')?.addEventListener('click', () => {
-      state.view = 'attempt-detail';
+    document.getElementById('prev-btn')?.addEventListener('click', () => {
+      prevQuestion();
+      render();
+    });
+    document.getElementById('back-results-btn')?.addEventListener('click', () => {
+      state.view = 'complete';
       render();
     });
   } else if (state.view === 'history') {
@@ -252,6 +281,9 @@ function saveAnswer() {
     const checked = form.querySelector('input[name="answer"]:checked') as HTMLInputElement;
     value = checked ? checked.value : '';
   } else if (question.type === 'short_answer') {
+    const input = form.querySelector('input[name="answer"]') as HTMLInputElement;
+    value = input ? input.value : '';
+  } else if (question.type === 'audio_short_answer') {
     const input = form.querySelector('input[name="answer"]') as HTMLInputElement;
     value = input ? input.value : '';
   } else if (question.type === 'paragraph') {

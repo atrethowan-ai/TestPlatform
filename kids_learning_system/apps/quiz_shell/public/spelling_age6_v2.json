@@ -1,0 +1,53 @@
+{
+  "id": "spelling_age6_v2",
+  "title": "Spelling Practice - Age 6, Level 2",
+  "ageGroup": "age6",
+  "sections": [
+    {
+      "id": "spelling_section",
+      "title": "Spelling",
+      "questions": [
+        {
+          "id": "q1",
+          "type": "audio_short_answer",
+          "prompt": "Type the word you hear.",
+          "domain": "spelling",
+          "answerKey": "frog",
+          "mediaRef": "media/spelling/spelling_age6_v2/q1.mp3"
+        },
+        {
+          "id": "q2",
+          "type": "audio_short_answer",
+          "prompt": "Type the word you hear.",
+          "domain": "spelling",
+          "answerKey": "ship",
+          "mediaRef": "media/spelling/spelling_age6_v2/q2.mp3"
+        },
+        {
+          "id": "q3",
+          "type": "audio_short_answer",
+          "prompt": "Type the word you hear.",
+          "domain": "spelling",
+          "answerKey": "jump",
+          "mediaRef": "media/spelling/spelling_age6_v2/q3.mp3"
+        },
+        {
+          "id": "q4",
+          "type": "audio_short_answer",
+          "prompt": "Type the word you hear.",
+          "domain": "spelling",
+          "answerKey": "hand",
+          "mediaRef": "media/spelling/spelling_age6_v2/q4.mp3"
+        },
+        {
+          "id": "q5",
+          "type": "audio_short_answer",
+          "prompt": "Type the word you hear.",
+          "domain": "spelling",
+          "answerKey": "nest",
+          "mediaRef": "media/spelling/spelling_age6_v2/q5.mp3"
+        }
+      ]
+    }
+  ]
+}

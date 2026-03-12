@@ -1,0 +1,143 @@
+{
+  "id": "math_age6_v2",
+  "title": "Math Challenge (Age 6+), Level 2",
+  "ageGroup": "age6",
+  "sections": [
+    {
+      "id": "math_section",
+      "title": "Math Section",
+      "questions": [
+        {
+          "id": "q1",
+          "type": "multiple_choice",
+          "prompt": "What is 8 + 5?",
+          "domain": "arithmetic",
+          "answerKey": "13",
+          "choices": [
+            "11",
+            "12",
+            "13",
+            "14"
+          ]
+        },
+        {
+          "id": "q2",
+          "type": "multiple_choice",
+          "prompt": "What is 15 - 7?",
+          "domain": "arithmetic",
+          "answerKey": "8",
+          "choices": [
+            "6",
+            "7",
+            "8",
+            "9"
+          ]
+        },
+        {
+          "id": "q3",
+          "type": "multiple_choice",
+          "prompt": "What number comes before 20?",
+          "domain": "number_sequence",
+          "answerKey": "19",
+          "choices": [
+            "17",
+            "18",
+            "19",
+            "21"
+          ]
+        },
+        {
+          "id": "q4",
+          "type": "multiple_choice",
+          "prompt": "Continue the pattern: 3, 6, 9, ?",
+          "domain": "patterns",
+          "answerKey": "12",
+          "choices": [
+            "10",
+            "11",
+            "12",
+            "13"
+          ]
+        },
+        {
+          "id": "q5",
+          "type": "multiple_choice",
+          "prompt": "Which number is biggest?",
+          "domain": "number_comparison",
+          "answerKey": "17",
+          "choices": [
+            "14",
+            "15",
+            "16",
+            "17"
+          ]
+        },
+        {
+          "id": "q6",
+          "type": "multiple_choice",
+          "prompt": "Tom has 6 bananas. A monkey steals 2. How many bananas are left?",
+          "domain": "word_problem",
+          "answerKey": "4",
+          "choices": [
+            "3",
+            "4",
+            "5",
+            "6"
+          ]
+        },
+        {
+          "id": "q7",
+          "type": "multiple_choice",
+          "prompt": "What is 7 + 7?",
+          "domain": "arithmetic",
+          "answerKey": "14",
+          "choices": [
+            "12",
+            "13",
+            "14",
+            "15"
+          ]
+        },
+        {
+          "id": "q8",
+          "type": "multiple_choice",
+          "prompt": "How many sides does a square have?",
+          "domain": "geometry",
+          "answerKey": "4",
+          "choices": [
+            "3",
+            "4",
+            "5",
+            "A million, if it is a very confused square"
+          ]
+        },
+        {
+          "id": "q9",
+          "type": "multiple_choice",
+          "prompt": "If you have 9 cookies and eat 3, how many cookies are left?",
+          "domain": "word_problem",
+          "answerKey": "6",
+          "choices": [
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        },
+        {
+          "id": "q10",
+          "type": "multiple_choice",
+          "prompt": "What is 10 + 9?",
+          "domain": "arithmetic",
+          "answerKey": "19",
+          "choices": [
+            "17",
+            "18",
+            "19",
+            "20"
+          ]
+        }
+      ]
+    }
+  ]
+}

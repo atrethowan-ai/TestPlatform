@@ -1,0 +1,68 @@
+[
+  {
+    "id": "age6_diagnostic_math_v1",
+    "title": "Age 6 Math Diagnostic",
+    "ageGroup": "age6",
+    "path": "/age6_diagnostic_math_v1.json"
+  },
+  {
+    "id": "age9_diagnostic_math_v1",
+    "title": "Age 9 Math Diagnostic",
+    "ageGroup": "age9",
+    "path": "/age9_diagnostic_math_v1.json"
+  },
+  {
+    "id": "age9_diagnostic_math_v1",
+    "title": "Math Diagnostic (Age 9)",
+    "ageGroup": "age9",
+    "path": "/age9_diagnostic_math_v1_old.json"
+  },
+  {
+    "id": "math_age6_v2",
+    "title": "Math Challenge (Age 6+), Level 2",
+    "ageGroup": "age6",
+    "path": "/math_age6_v2.json"
+  },
+  {
+    "id": "math_age9_v2",
+    "title": "Math Challenge (Age 9+)",
+    "ageGroup": "age9",
+    "path": "/math_age9_v2.json"
+  },
+  {
+    "id": "sample_authoring_quiz_v1",
+    "title": "Sample Authoring Quiz (Canonical)",
+    "ageGroup": "age9",
+    "path": "/sample_authoring_quiz_v1.json"
+  },
+  {
+    "id": "spelling_age6_v1",
+    "title": "Spelling Practice (Age 6)",
+    "ageGroup": "age6",
+    "path": "/spelling_age6_v1.json"
+  },
+  {
+    "id": "spelling_age6_v2",
+    "title": "Spelling Practice - Age 6, Level 2",
+    "ageGroup": "age6",
+    "path": "/spelling_age6_v2.json"
+  },
+  {
+    "id": "spelling_age9_v1",
+    "title": "Spelling Practice (Age 9)",
+    "ageGroup": "age9",
+    "path": "/spelling_age9_v1.json"
+  },
+  {
+    "id": "spelling_age9_v2",
+    "title": "Spelling Practice (Age 9), Level 2",
+    "ageGroup": "age9",
+    "path": "/spelling_age9_v2.json"
+  },
+  {
+    "id": "spelling_test_v1",
+    "title": "Spelling Test (E2E Test Quiz)",
+    "ageGroup": "6-7",
+    "path": "/spelling_test_v1.json"
+  }
+]

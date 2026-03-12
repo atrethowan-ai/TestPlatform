@@ -1,0 +1,53 @@
+{
+  "id": "spelling_age6_v1",
+  "title": "Spelling Practice (Age 6)",
+  "ageGroup": "age6",
+  "sections": [
+    {
+      "id": "spelling_section",
+      "title": "Spelling",
+      "questions": [
+        {
+          "id": "q1",
+          "type": "audio_short_answer",
+          "prompt": "Type the word you hear.",
+          "domain": "spelling",
+          "answerKey": "cat",
+          "mediaRef": "media/spelling/spelling_age6_v1/q1.mp3"
+        },
+        {
+          "id": "q2",
+          "type": "audio_short_answer",
+          "prompt": "Type the word you hear.",
+          "domain": "spelling",
+          "answerKey": "dog",
+          "mediaRef": "media/spelling/spelling_age6_v1/q2.mp3"
+        },
+        {
+          "id": "q3",
+          "type": "audio_short_answer",
+          "prompt": "Type the word you hear.",
+          "domain": "spelling",
+          "answerKey": "sun",
+          "mediaRef": "media/spelling/spelling_age6_v1/q3.mp3"
+        },
+        {
+          "id": "q4",
+          "type": "audio_short_answer",
+          "prompt": "Type the word you hear.",
+          "domain": "spelling",
+          "answerKey": "bed",
+          "mediaRef": "media/spelling/spelling_age6_v1/q4.mp3"
+        },
+        {
+          "id": "q5",
+          "type": "audio_short_answer",
+          "prompt": "Type the word you hear.",
+          "domain": "spelling",
+          "answerKey": "hat",
+          "mediaRef": "media/spelling/spelling_age6_v1/q5.mp3"
+        }
+      ]
+    }
+  ]
+}

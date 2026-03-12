@@ -1,0 +1,143 @@
+{
+  "id": "math_age9_v2",
+  "title": "Math Challenge (Age 9+)",
+  "ageGroup": "age9",
+  "sections": [
+    {
+      "id": "math_section",
+      "title": "Math Section",
+      "questions": [
+        {
+          "id": "q1",
+          "type": "multiple_choice",
+          "prompt": "What is 458 + 267?",
+          "domain": "arithmetic",
+          "answerKey": "725",
+          "choices": [
+            "715",
+            "725",
+            "735",
+            "745"
+          ]
+        },
+        {
+          "id": "q2",
+          "type": "multiple_choice",
+          "prompt": "What is 804 - 356?",
+          "domain": "arithmetic",
+          "answerKey": "448",
+          "choices": [
+            "438",
+            "448",
+            "458",
+            "468"
+          ]
+        },
+        {
+          "id": "q3",
+          "type": "multiple_choice",
+          "prompt": "What is 8 × 9?",
+          "domain": "multiplication",
+          "answerKey": "72",
+          "choices": [
+            "63",
+            "72",
+            "81",
+            "89"
+          ]
+        },
+        {
+          "id": "q4",
+          "type": "multiple_choice",
+          "prompt": "What is 56 ÷ 8?",
+          "domain": "division",
+          "answerKey": "7",
+          "choices": [
+            "6",
+            "7",
+            "8",
+            "9"
+          ]
+        },
+        {
+          "id": "q5",
+          "type": "multiple_choice",
+          "prompt": "Which fraction is larger?",
+          "domain": "fractions",
+          "answerKey": "2/3",
+          "choices": [
+            "2/3",
+            "3/5",
+            "They are equal",
+            "A hungry dragon ate both fractions"
+          ]
+        },
+        {
+          "id": "q6",
+          "type": "multiple_choice",
+          "prompt": "What is 3/4 + 1/4?",
+          "domain": "fractions",
+          "answerKey": "1",
+          "choices": [
+            "3/4",
+            "1",
+            "1/2",
+            "4/8"
+          ]
+        },
+        {
+          "id": "q7",
+          "type": "multiple_choice",
+          "prompt": "A rectangle is 6 cm long and 4 cm wide. What is its perimeter?",
+          "domain": "geometry",
+          "answerKey": "20 cm",
+          "choices": [
+            "10 cm",
+            "20 cm",
+            "24 cm",
+            "48 cm"
+          ]
+        },
+        {
+          "id": "q8",
+          "type": "multiple_choice",
+          "prompt": "What number comes next in the pattern? 5, 10, 20, 40, ?",
+          "domain": "patterns",
+          "answerKey": "80",
+          "choices": [
+            "45",
+            "60",
+            "80",
+            "100"
+          ]
+        },
+        {
+          "id": "q9",
+          "type": "multiple_choice",
+          "prompt": "Which number is closest to 1,000?",
+          "domain": "place_value",
+          "answerKey": "995",
+          "choices": [
+            "980",
+            "995",
+            "1,020",
+            "970"
+          ]
+        },
+        {
+          "id": "q10",
+          "type": "multiple_choice",
+          "prompt": "Which number is divisible by 4?",
+          "domain": "divisibility",
+          "answerKey": "48",
+          "choices": [
+            "26",
+            "34",
+            "42",
+            "48"
+          ]
+        }
+      ]
+    }
+  ]
+}

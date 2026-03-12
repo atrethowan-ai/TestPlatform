@@ -1,0 +1,48 @@
+{
+  "id": "sample_authoring_quiz_v1",
+  "title": "Sample Authoring Quiz (Canonical)",
+  "ageGroup": "age9",
+  "sections": [
+    {
+      "id": "math_section",
+      "title": "Math Section",
+      "questions": [
+        {
+          "id": "q1",
+          "type": "multiple_choice",
+          "prompt": "What is 2 + 2?",
+          "domain": "arithmetic",
+          "answerKey": "4",
+          "choices": [
+            "3",
+            "4",
+            "5"
+          ]
+        },
+        {
+          "id": "q2",
+          "type": "short_answer",
+          "prompt": "What is the capital of France?",
+          "domain": "geography",
+          "answerKey": "Paris"
+        },
+        {
+          "id": "q3",
+          "type": "paragraph",
+          "prompt": "Explain why the sky is blue.",
+          "domain": "science",
+          "answerKey": "Sample rubric answer.",
+          "rubricRef": "writing_rubric_age9_v1"
+        },
+        {
+          "id": "q4",
+          "type": "audio_short_answer",
+          "prompt": "Spell the word 'elephant' after listening to the audio.",
+          "domain": "spelling",
+          "answerKey": "elephant",
+          "mediaRef": "media/spelling/sample_authoring_quiz_v1/q4.mp3"
+        }
+      ]
+    }
+  ]
+}
