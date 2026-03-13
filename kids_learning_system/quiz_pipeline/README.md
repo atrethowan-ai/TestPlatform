@@ -1,4 +1,3 @@
-
 ## Unified Local Server
 
 A single Python FastAPI backend now:
@@ -90,6 +89,37 @@ If needed, expand the "Advanced" section to manually select attempt and quiz fil
 4. Copy results as needed.
 
 See also: docs/WORKFLOW.md for more details.
+
+## Quiz Builder Tab (2026)
+
+The GUI now includes a **Quiz Builder** tab for creating, validating, and publishing new quizzes directly from the GUI, without manual file editing.
+
+### Workflow
+1. Go to the **Quiz Builder** tab.
+2. Click **Load Template** to insert the canonical authoring quiz template.
+3. Paste or edit your quiz JSON in the editor.
+4. Click **Validate** to check for syntax, schema, and authoring issues.
+5. If valid, click **Save to Incoming** to save the quiz to `work/incoming/`.
+6. Click **Build and Publish** to run the full build pipeline and publish the quiz to the runtime web app.
+7. See status, errors, and output details in the status panel.
+
+### Features
+- **Load Template**: Loads `templates/quiz_authoring_template.json` into the editor.
+- **Validate**: Checks JSON syntax, schema, and authoring quality (duplicate IDs, missing fields, etc). Results shown in the status panel and metadata preview.
+- **Save to Incoming**: Saves the current quiz JSON to `work/incoming/{quiz_id}.json`. Warns before overwriting.
+- **Build and Publish**: Calls the existing build pipeline (same as CLI), generates media if needed, and publishes the quiz to the runtime app. Shows output and errors in the GUI.
+- **Open Incoming/Generated Folder**: Opens the relevant folders in Explorer.
+
+### Validation Details
+- JSON syntax errors (malformed JSON, missing brackets, etc)
+- Schema validation (required fields, structure)
+- Authoring checks (duplicate IDs, missing ageGroup, unsupported types, etc)
+- Build readiness (audio question detection, etc)
+
+### Success Criteria
+After using the Quiz Builder tab, your quiz should appear in the runtime web UI after building and publishing, with no manual file operations required.
+
+See also: docs/QUIZ_AUTHORING_SCHEMA.md and docs/WORKFLOW.md for quiz format and authoring details.
 
 ## Architecture
 
