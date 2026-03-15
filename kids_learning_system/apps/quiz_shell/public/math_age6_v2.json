@@ -2,6 +2,11 @@
   "id": "math_age6_v2",
   "title": "Math Challenge (Age 6+), Level 2",
   "ageGroup": "age6",
+  "category": "Mathematics & Numeracy",
+  "subcategory": "Addition & Subtraction",
+  "skill": "Basic addition facts",
+  "difficulty_level": 1,
+  "dateCreated": "2026-01-01",
   "sections": [
     {
       "id": "math_section",

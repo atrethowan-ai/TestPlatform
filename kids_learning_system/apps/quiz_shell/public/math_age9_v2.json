@@ -2,6 +2,11 @@
   "id": "math_age9_v2",
   "title": "Math Challenge (Age 9+)",
   "ageGroup": "age9",
+  "category": "Mathematics & Numeracy",
+  "subcategory": "Multiplication & Division",
+  "skill": "Times tables",
+  "difficulty_level": 4,
+  "dateCreated": "2026-01-01",
   "sections": [
     {
       "id": "math_section",

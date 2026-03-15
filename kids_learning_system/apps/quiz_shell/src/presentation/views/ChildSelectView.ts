@@ -12,9 +12,12 @@ export function ChildSelectView({
   devMode?: boolean;
 }) {
   let html = `<div class="container">
-    <h2>Select Child</h2>
+    <div class="page-header">
+      <button id="return-main-btn" class="return-main-btn">← Main Menu</button>
+    </div>
+    <h2>Select User</h2>
     <div style="color:#888;font-size:0.9em;margin-bottom:1em;">
-      Please select the child who is using the system.<br>
+      Please select the user who is taking this quiz.<br>
       <b>Test User</b> is for safe testing and development only.
     </div>
     <div class="child-list">`;

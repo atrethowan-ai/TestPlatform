@@ -2,7 +2,7 @@ import { QuizSchema } from '@shared_types/src/schemas/quizSchema';
 
 export class QuizLoaderService {
   quizzes: any[] = [];
-  manifest: { id: string; title: string; ageGroup: string; path: string }[] = [];
+  manifest: { id: string; title: string; ageGroup: string; path: string; category?: string; subcategory?: string; skill?: string; difficulty_level?: number; dateCreated?: string }[] = [];
 
   async loadAllQuizzes(): Promise<any[]> {
     // Load manifest
@@ -36,16 +36,21 @@ export class QuizLoaderService {
     return this.quizzes.filter(q => (q.ageBand || q.ageGroup) === child.ageBand);
   }
 
-  async loadQuizListForChild(child: { ageBand?: string; childId?: string; isTestUser?: boolean }): Promise<{ id: string; title: string; path: string }[]> {
+  async loadQuizListForChild(child: { ageBand?: string; childId?: string; isTestUser?: boolean }): Promise<{ id: string; title: string; path: string; category: string; subcategory: string; skill: string; difficulty_level: number; dateCreated: string }[]> {
     if (!this.quizzes.length) await this.loadAllQuizzes();
     const filtered = this.getAvailableQuizzesForChild(child);
-    // Use manifest to get the correct path/title
+    // Use manifest to get the correct path/title and taxonomy fields
     return filtered.map(q => {
       const entry = this.manifest.find(m => (m.id === (q.quizId || q.id)));
       return {
         id: q.quizId || q.id,
         title: q.title,
         path: entry ? entry.path : '',
+        category: q.category || entry?.category || '',
+        subcategory: q.subcategory || entry?.subcategory || '',
+        skill: q.skill || entry?.skill || '',
+        difficulty_level: q.difficulty_level ?? entry?.difficulty_level ?? 0,
+        dateCreated: q.dateCreated || entry?.dateCreated || '',
       };
     });
   }

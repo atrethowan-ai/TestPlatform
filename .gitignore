@@ -31,3 +31,12 @@ media/
 
 # logs
 *.log
+
+# ACARA/NAPLAN raw and VLM extraction caches
+**/data/raw/**
+**/data/rendered_pages/**
+**/data/raw_vlm_responses/**
+**/data/cleaned_vlm_responses/**
+**/data/merged_documents/**
+**/data/diagnostics/**/*.json
+**/outputs/*.vlm.*.jsonl

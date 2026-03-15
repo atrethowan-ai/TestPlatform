@@ -2,6 +2,11 @@
   "id": "age9_diagnostic_math_v1",
   "title": "Math Diagnostic (Age 9)",
   "ageGroup": "age9",
+  "category": "Mathematics & Numeracy",
+  "subcategory": "Number Sense",
+  "skill": "Comparing numbers",
+  "difficulty_level": 4,
+  "dateCreated": "2026-01-01",
   "sections": [
     {
       "id": "section1",

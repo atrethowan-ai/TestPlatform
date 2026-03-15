@@ -3,66 +3,121 @@
     "id": "age6_diagnostic_math_v1",
     "title": "Age 6 Math Diagnostic",
     "ageGroup": "age6",
+    "category": "Mathematics & Numeracy",
+    "subcategory": "Number Sense",
+    "skill": "Number recognition",
+    "difficulty_level": 1,
+    "dateCreated": "2026-01-01",
     "path": "/age6_diagnostic_math_v1.json"
   },
   {
     "id": "age9_diagnostic_math_v1",
     "title": "Age 9 Math Diagnostic",
     "ageGroup": "age9",
+    "category": "Mathematics & Numeracy",
+    "subcategory": "Number Sense",
+    "skill": "Comparing numbers",
+    "difficulty_level": 4,
+    "dateCreated": "2026-01-01",
     "path": "/age9_diagnostic_math_v1.json"
   },
   {
     "id": "age9_diagnostic_math_v1",
     "title": "Math Diagnostic (Age 9)",
     "ageGroup": "age9",
+    "category": "Mathematics & Numeracy",
+    "subcategory": "Number Sense",
+    "skill": "Comparing numbers",
+    "difficulty_level": 4,
+    "dateCreated": "2026-01-01",
     "path": "/age9_diagnostic_math_v1_old.json"
   },
   {
     "id": "math_age6_v2",
     "title": "Math Challenge (Age 6+), Level 2",
     "ageGroup": "age6",
+    "category": "Mathematics & Numeracy",
+    "subcategory": "Addition & Subtraction",
+    "skill": "Basic addition facts",
+    "difficulty_level": 1,
+    "dateCreated": "2026-01-01",
     "path": "/math_age6_v2.json"
   },
   {
     "id": "math_age9_v2",
     "title": "Math Challenge (Age 9+)",
     "ageGroup": "age9",
+    "category": "Mathematics & Numeracy",
+    "subcategory": "Multiplication & Division",
+    "skill": "Times tables",
+    "difficulty_level": 4,
+    "dateCreated": "2026-01-01",
     "path": "/math_age9_v2.json"
-  },
-  {
-    "id": "sample_authoring_quiz_v1",
-    "title": "Sample Authoring Quiz (Canonical)",
-    "ageGroup": "age9",
-    "path": "/sample_authoring_quiz_v1.json"
   },
   {
     "id": "spelling_age6_v1",
     "title": "Spelling Practice (Age 6)",
     "ageGroup": "age6",
+    "category": "Spelling & Phonics",
+    "subcategory": "Basic Spelling",
+    "skill": "CVC words",
+    "difficulty_level": 1,
+    "dateCreated": "2026-01-01",
     "path": "/spelling_age6_v1.json"
   },
   {
     "id": "spelling_age6_v2",
     "title": "Spelling Practice - Age 6, Level 2",
     "ageGroup": "age6",
+    "category": "Spelling & Phonics",
+    "subcategory": "Phonics Patterns",
+    "skill": "Consonant blends",
+    "difficulty_level": 1,
+    "dateCreated": "2026-01-01",
     "path": "/spelling_age6_v2.json"
   },
   {
     "id": "spelling_age9_v1",
     "title": "Spelling Practice (Age 9)",
     "ageGroup": "age9",
+    "category": "Spelling & Phonics",
+    "subcategory": "Advanced Spelling",
+    "skill": "Root words",
+    "difficulty_level": 4,
+    "dateCreated": "2026-01-01",
     "path": "/spelling_age9_v1.json"
   },
   {
     "id": "spelling_age9_v2",
     "title": "Spelling Practice (Age 9), Level 2",
     "ageGroup": "age9",
+    "category": "Spelling & Phonics",
+    "subcategory": "Advanced Spelling",
+    "skill": "Word families",
+    "difficulty_level": 4,
+    "dateCreated": "2026-01-01",
     "path": "/spelling_age9_v2.json"
   },
   {
     "id": "spelling_test_v1",
     "title": "Spelling Test (E2E Test Quiz)",
     "ageGroup": "6-7",
+    "category": "Spelling & Phonics",
+    "subcategory": "Basic Spelling",
+    "skill": "High-frequency words",
+    "difficulty_level": 1,
+    "dateCreated": "2026-01-01",
     "path": "/spelling_test_v1.json"
+  },
+  {
+    "id": "sample_authoring_quiz_v1",
+    "title": "Sample Authoring Quiz (Canonical)",
+    "ageGroup": "age9",
+    "category": "Mathematics & Numeracy",
+    "subcategory": "Word Problems",
+    "skill": "Single-step problems",
+    "difficulty_level": 4,
+    "dateCreated": "2026-01-01",
+    "path": "/sample_authoring_quiz_v1.json"
   }
 ]

@@ -2,6 +2,11 @@
   "id": "sample_authoring_quiz_v1",
   "title": "Sample Authoring Quiz (Canonical)",
   "ageGroup": "age9",
+  "category": "Mathematics & Numeracy",
+  "subcategory": "Word Problems",
+  "skill": "Single-step problems",
+  "difficulty_level": 4,
+  "dateCreated": "2026-01-01",
   "sections": [
     {
       "id": "math_section",
@@ -39,8 +44,7 @@
           "type": "audio_short_answer",
           "prompt": "Spell the word 'elephant' after listening to the audio.",
           "domain": "spelling",
-          "answerKey": "elephant",
-          "mediaRef": "media/spelling/sample_authoring_quiz_v1/q4.mp3"
+          "answerKey": "elephant"
         }
       ]
     }

@@ -2,6 +2,11 @@
   "id": "age6_diagnostic_math_v1",
   "title": "Age 6 Math Diagnostic",
   "ageGroup": "age6",
+  "category": "Mathematics & Numeracy",
+  "subcategory": "Number Sense",
+  "skill": "Number recognition",
+  "difficulty_level": 1,
+  "dateCreated": "2026-01-01",
   "sections": [
     {
       "id": "math_diagnostic",

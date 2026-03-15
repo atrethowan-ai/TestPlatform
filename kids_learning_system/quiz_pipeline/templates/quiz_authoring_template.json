@@ -2,6 +2,11 @@
   "id": "sample_authoring_quiz_v1",
   "title": "Sample Authoring Quiz (Canonical)",
   "ageGroup": "age9",
+  "category": "Mathematics & Numeracy",
+  "subcategory": "Word Problems",
+  "skill": "Single-step problems",
+  "difficulty_level": 4,
+  "dateCreated": "2026-01-01",
   "description": "A sample quiz demonstrating all supported authoring question types.",
   "sections": [
     {

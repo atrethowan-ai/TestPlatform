@@ -1,6 +1,8 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from .routes.health import router as health_router
 from .routes.attempts import router as attempts_router
+from .routes.admin import router as admin_router
 from .config import settings
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
@@ -9,9 +11,19 @@ import os
 
 app = FastAPI(title="Quiz Local Service", version="0.1")
 
+# Allow CORS for admin API calls during development
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 # Mount API routers under /api
 app.include_router(health_router)
 app.include_router(attempts_router)
+app.include_router(admin_router)
 
 # Serve static frontend
 frontend_dist = settings.FRONTEND_DIST_PATH.resolve()
@@ -30,3 +42,4 @@ async def spa_catch_all(request: Request, full_path: str):
 	if index_path.exists():
 		return FileResponse(index_path)
 	return {"detail": "Frontend not built"}
+

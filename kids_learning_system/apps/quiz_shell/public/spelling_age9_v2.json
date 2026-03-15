@@ -2,6 +2,11 @@
   "id": "spelling_age9_v2",
   "title": "Spelling Practice (Age 9), Level 2",
   "ageGroup": "age9",
+  "category": "Spelling & Phonics",
+  "subcategory": "Advanced Spelling",
+  "skill": "Word families",
+  "difficulty_level": 4,
+  "dateCreated": "2026-01-01",
   "sections": [
     {
       "id": "spelling_section",

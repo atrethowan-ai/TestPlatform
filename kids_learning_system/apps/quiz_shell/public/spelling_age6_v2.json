@@ -2,6 +2,11 @@
   "id": "spelling_age6_v2",
   "title": "Spelling Practice - Age 6, Level 2",
   "ageGroup": "age6",
+  "category": "Spelling & Phonics",
+  "subcategory": "Phonics Patterns",
+  "skill": "Consonant blends",
+  "difficulty_level": 1,
+  "dateCreated": "2026-01-01",
   "sections": [
     {
       "id": "spelling_section",
