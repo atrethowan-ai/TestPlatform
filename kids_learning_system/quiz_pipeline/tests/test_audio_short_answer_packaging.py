@@ -69,7 +69,7 @@ def test_audio_short_answer_packaging_success():
     assert "audioText" not in q
     assert "ttsStyle" not in q
     # Check MP3 file exists
-    mp3_path = Path(q["mediaRef"])
+    mp3_path = voice_agent_dir / q["mediaRef"]
     assert mp3_path.exists(), f"MP3 not found: {mp3_path}"
     print(f"PASS: mediaRef and MP3 generated at {mp3_path}")
     # Clean up
@@ -104,6 +104,39 @@ def test_audio_short_answer_packaging_missing_audioText():
     print(f"PASS: packaging failed as expected: {excinfo.value}")
     # Clean up
     clean_media(quiz_id)
+
+
+def test_transform_supports_section_items_input():
+    authoring_quiz = {
+        "id": "logic_age6_quiz_1",
+        "title": "Logic and Reasoning Challenge",
+        "ageGroup": "age6",
+        "category": "Logic & Problem Solving",
+        "difficulty_level": 7.0,
+        "dateCreated": "2026-03-25",
+        "sections": [
+            {
+                "id": "logic_age6_section_1",
+                "title": "Questions",
+                "items": [
+                    {
+                        "id": "q1",
+                        "type": "multiple_choice",
+                        "prompt": "Which one does not belong with the others?",
+                        "subcategory": "Classification",
+                        "skill": "Odd one out",
+                        "choices": ["cat", "dog", "fish", "spoon"],
+                        "answerKey": "spoon",
+                    }
+                ],
+            }
+        ],
+    }
+
+    runtime = transform_authoring_to_runtime(authoring_quiz)
+    assert len(runtime["sections"]) == 1
+    assert len(runtime["sections"][0]["questions"]) == 1
+    assert runtime["sections"][0]["questions"][0]["id"] == "q1"
 
 if __name__ == "__main__":
     import pytest

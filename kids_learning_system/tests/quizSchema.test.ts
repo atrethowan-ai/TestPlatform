@@ -1,10 +1,15 @@
 import { describe, it, expect } from 'vitest';
-import { QuizSchema } from '@shared_types/src/schemas/quizSchema';
+import { QuizSchema } from '../packages/shared_types/src/schemas/quizSchema';
 
 const validQuiz = {
   id: 'quiz1',
   title: 'Math Diagnostic',
   ageGroup: 'age6',
+  category: 'Mathematics & Numeracy',
+  subcategory: 'Number Sense',
+  skill: 'Counting',
+  difficulty_level: 1,
+  dateCreated: '2026-03-18',
   sections: [
     {
       id: 'sec1',
@@ -14,6 +19,8 @@ const validQuiz = {
           id: 'q1',
           type: 'multiple_choice',
           prompt: 'What is 2 + 2?',
+          subcategory: 'Addition & Subtraction',
+          skill: 'Basic addition facts',
           choices: ['3', '4', '5'],
           answerKey: '4',
           distractors: ['3', '5'],

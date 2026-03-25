@@ -14,6 +14,14 @@ import { AdminView, AdminSection } from './presentation/views/AdminView';
 import { AdminResultsView, loadResultDetail } from './presentation/views/AdminResultsView';
 import { AdminQuizBuilderView, wireQuizBuilder } from './presentation/views/AdminQuizBuilderView';
 import { AdminQuizManagerView, wireQuizManager } from './presentation/views/AdminQuizManagerView';
+import {
+  createInitialDecisionTreeTraversalState,
+  DecisionTreeTraversalState,
+  flattenQuiz,
+  FlattenedNavigationNode,
+  goBackDecisionTree,
+  selectDecisionTreeChoice,
+} from './application/services/flattenQuiz';
 
 
 const DEV_MODE = true; // Set to false for normal runtime
@@ -34,8 +42,9 @@ let state: {
   quizList: any[];
   quiz: any;
   session: any;
-  sectionIdx: number;
-  questionIdx: number;
+  navigationSequence: FlattenedNavigationNode[];
+  navigationIdx: number;
+  decisionTreeStateByTreeId: Record<string, DecisionTreeTraversalState>;
   result: any;
   selectedChild: any;
   lastAttemptId: string | null;
@@ -48,8 +57,9 @@ let state: {
   quizList: [],
   quiz: null,
   session: null,
-  sectionIdx: 0,
-  questionIdx: 0,
+  navigationSequence: [],
+  navigationIdx: 0,
+  decisionTreeStateByTreeId: {},
   result: null,
   selectedChild: null,
   lastAttemptId: null,
@@ -123,7 +133,7 @@ async function render() {
     });
     root.innerHTML = html;
     bindReturnToMain();
-    bindSubcategoryAccordions();
+    bindDomainAccordions();
     document.getElementById('sort-date-btn')?.addEventListener('click', () => {
       state.quizSortMode = 'date';
       render();
@@ -156,8 +166,9 @@ async function render() {
         if (DEV_MODE) console.log('[App] Quiz loaded:', quiz.id);
         state.quiz = quiz;
         state.session = createQuizSession(quiz);
-        state.sectionIdx = 0;
-        state.questionIdx = 0;
+        state.navigationSequence = flattenQuiz(quiz);
+        state.navigationIdx = 0;
+        state.decisionTreeStateByTreeId = createDecisionTreeStateMap(state.navigationSequence);
         state.view = 'session';
         render();
       });
@@ -166,6 +177,17 @@ async function render() {
     const quiz = state.quiz;
     const session = state.session;
     const child = state.selectedChild;
+    const navNode = getCurrentNavigationNode();
+    if (!navNode) {
+      root.innerHTML = `<div class="container"><div class="card"><h2>No quiz items found</h2></div></div>`;
+      bindReturnToMain();
+      return;
+    }
+
+    const treeState = navNode.kind === 'decision_tree'
+      ? state.decisionTreeStateByTreeId[navNode.treeId]
+      : undefined;
+
     root.innerHTML =
       `<div class="session-header">
         <button id="return-main-btn" class="return-main-btn">← Main Menu</button>
@@ -173,47 +195,22 @@ async function render() {
       </div>` +
       QuizSessionView({
         quiz,
-        sectionIdx: state.sectionIdx,
-        questionIdx: state.questionIdx,
+        navNode,
+        navIdx: state.navigationIdx,
+        totalNodes: state.navigationSequence.length,
         answers: session.answers,
         readOnly: false,
+        decisionTreeTraversalState: treeState,
       });
     bindReturnToMain();
+
+    bindDecisionTreeControls();
+
     const form = document.getElementById('question-form');
     if (form) {
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        saveAnswer();
-        state.result = scoreQuiz(quiz, session.answers);
-        const attempt = {
-          attemptId: `${child.childId}_${quiz.id}_${Date.now()}`,
-          quizId: quiz.id,
-          childId: child.childId,
-          completedAt: new Date().toISOString(),
-          responses: Object.fromEntries(session.answers.entries()),
-          score: state.result,
-        };
-        try {
-          await attemptRepository.saveAttempt(attempt);
-          try {
-            const resp = await fetch('/api/attempts', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(attempt),
-            });
-            if (!resp.ok) {
-              const err = await resp.json().catch(() => ({}));
-              throw new Error(err.detail || 'Failed to save attempt to backend');
-            }
-          } catch (apiErr) {
-            console.warn('Failed to send attempt to backend:', apiErr);
-          }
-        } catch (err) {
-          alert('Failed to save attempt: ' + err);
-        }
-        state.lastAttemptId = attempt.attemptId;
-        state.view = 'complete';
-        render();
+        await completeSession();
       });
       form.querySelectorAll('input[name="answer"],textarea[name="answer"]').forEach(input => {
         input.addEventListener('blur', saveAnswer);
@@ -228,6 +225,12 @@ async function render() {
         });
       });
     }
+
+    document.getElementById('submit-btn')?.addEventListener('click', async () => {
+      saveAnswer();
+      await completeSession();
+    });
+
     document.getElementById('next-btn')?.addEventListener('click', () => {
       saveAnswer();
       nextQuestion();
@@ -248,8 +251,7 @@ async function render() {
       SessionCompleteView({ result: state.result });
     bindReturnToMain();
     document.getElementById('review-btn')?.addEventListener('click', () => {
-      state.sectionIdx = 0;
-      state.questionIdx = 0;
+      state.navigationIdx = 0;
       state.view = 'review';
       render();
     });
@@ -257,11 +259,25 @@ async function render() {
       state.view = 'home';
       state.quiz = null;
       state.session = null;
+      state.navigationSequence = [];
+      state.navigationIdx = 0;
+      state.decisionTreeStateByTreeId = {};
       state.result = null;
       render();
     });
   } else if (state.view === 'review') {
     const child = state.selectedChild;
+    const navNode = getCurrentNavigationNode();
+    if (!navNode) {
+      root.innerHTML = `<div class="container"><div class="card"><h2>No quiz items found</h2></div></div>`;
+      bindReturnToMain();
+      return;
+    }
+
+    const treeState = navNode.kind === 'decision_tree'
+      ? state.decisionTreeStateByTreeId[navNode.treeId]
+      : undefined;
+
     root.innerHTML =
       `<div class="session-header">
         <button id="return-main-btn" class="return-main-btn">← Main Menu</button>
@@ -269,10 +285,12 @@ async function render() {
       </div>` +
       QuizSessionView({
         quiz: state.quiz,
-        sectionIdx: state.sectionIdx,
-        questionIdx: state.questionIdx,
+        navNode,
+        navIdx: state.navigationIdx,
+        totalNodes: state.navigationSequence.length,
         answers: state.session.answers,
         readOnly: true,
+        decisionTreeTraversalState: treeState,
         reviewResultByQuestionId: state.result?.resultByQuestionId,
       });
     bindReturnToMain();
@@ -428,13 +446,16 @@ function bindReturnToMain() {
     state.view = 'home';
     state.quiz = null;
     state.session = null;
+    state.navigationSequence = [];
+    state.navigationIdx = 0;
+    state.decisionTreeStateByTreeId = {};
     state.result = null;
     render();
   });
 }
 
-function bindSubcategoryAccordions() {
-  document.querySelectorAll('.subcategory-header').forEach(btn => {
+function bindDomainAccordions() {
+  document.querySelectorAll('.quiz-domain-header').forEach(btn => {
     btn.addEventListener('click', () => {
       const target = (btn as HTMLElement).getAttribute('data-target');
       if (!target) return;
@@ -443,19 +464,24 @@ function bindSubcategoryAccordions() {
       const expanded = body.style.display !== 'none';
       body.style.display = expanded ? 'none' : 'block';
       btn.setAttribute('aria-expanded', String(!expanded));
-      const chevron = btn.querySelector('.subcategory-chevron');
+      const chevron = btn.querySelector('.quiz-domain-chevron');
       if (chevron) chevron.textContent = expanded ? '▼' : '▲';
     });
   });
 }
 
 function saveAnswer() {
-  const quiz = state.quiz;
   const session = state.session;
-  const section = quiz.sections[state.sectionIdx];
-  const question = section.questions[state.questionIdx];
+  const navNode = getCurrentNavigationNode();
+  if (!navNode) return;
+  if (navNode.kind !== 'question' && navNode.kind !== 'stimulus_question') {
+    return;
+  }
+
+  const question = navNode.question;
   const form = document.getElementById('question-form') as HTMLFormElement;
   if (!form) return;
+
   let value = '';
   if (question.type === 'multiple_choice') {
     const checked = form.querySelector('input[name="answer"]:checked') as HTMLInputElement;
@@ -474,24 +500,117 @@ function saveAnswer() {
 }
 
 function nextQuestion() {
-  const quiz = state.quiz;
-  let { sectionIdx, questionIdx } = state;
-  if (questionIdx < quiz.sections[sectionIdx].questions.length - 1) {
-    state.questionIdx++;
-  } else if (sectionIdx < quiz.sections.length - 1) {
-    state.sectionIdx++;
-    state.questionIdx = 0;
+  const current = getCurrentNavigationNode();
+  if (
+    current &&
+    current.kind === 'decision_tree' &&
+    !state.decisionTreeStateByTreeId[current.treeId]?.reachedEnding
+  ) {
+    return;
+  }
+
+  if (state.navigationIdx < state.navigationSequence.length - 1) {
+    state.navigationIdx++;
   }
 }
 
 function prevQuestion() {
-  let { sectionIdx, questionIdx } = state;
-  if (questionIdx > 0) {
-    state.questionIdx--;
-  } else if (sectionIdx > 0) {
-    state.sectionIdx--;
-    state.questionIdx = state.quiz.sections[state.sectionIdx].questions.length - 1;
+  if (state.navigationIdx > 0) {
+    state.navigationIdx--;
   }
+}
+
+function getCurrentNavigationNode(): FlattenedNavigationNode | undefined {
+  return state.navigationSequence[state.navigationIdx];
+}
+
+function createDecisionTreeStateMap(
+  sequence: FlattenedNavigationNode[],
+): Record<string, DecisionTreeTraversalState> {
+  const map: Record<string, DecisionTreeTraversalState> = {};
+  sequence.forEach((node) => {
+    if (node.kind === 'decision_tree') {
+      map[node.treeId] = createInitialDecisionTreeTraversalState(node.tree);
+    }
+  });
+  return map;
+}
+
+function bindDecisionTreeControls() {
+  const navNode = getCurrentNavigationNode();
+  if (!navNode || navNode.kind !== 'decision_tree') {
+    return;
+  }
+
+  document.querySelectorAll('.decision-choice-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const choiceId = (btn as HTMLElement).getAttribute('data-choice-id');
+      if (!choiceId) {
+        return;
+      }
+      const currentState = state.decisionTreeStateByTreeId[navNode.treeId];
+      if (!currentState) {
+        return;
+      }
+      const updated = selectDecisionTreeChoice(
+        navNode.tree,
+        currentState,
+        currentState.currentNodeId,
+        choiceId,
+      );
+      state.decisionTreeStateByTreeId[navNode.treeId] = updated;
+      render();
+    });
+  });
+
+  document.getElementById('tree-back-btn')?.addEventListener('click', () => {
+    const currentState = state.decisionTreeStateByTreeId[navNode.treeId];
+    if (!currentState) {
+      return;
+    }
+    const updated = goBackDecisionTree(navNode.tree, currentState);
+    state.decisionTreeStateByTreeId[navNode.treeId] = updated;
+    render();
+  });
+}
+
+async function completeSession() {
+  const quiz = state.quiz;
+  const session = state.session;
+  const child = state.selectedChild;
+  state.result = scoreQuiz(quiz, session.answers);
+
+  const attempt = {
+    attemptId: `${child.childId}_${quiz.id}_${Date.now()}`,
+    quizId: quiz.id,
+    childId: child.childId,
+    completedAt: new Date().toISOString(),
+    responses: Object.fromEntries(session.answers.entries()),
+    score: state.result,
+  };
+
+  try {
+    await attemptRepository.saveAttempt(attempt);
+    try {
+      const resp = await fetch('/api/attempts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(attempt),
+      });
+      if (!resp.ok) {
+        const err = await resp.json().catch(() => ({}));
+        throw new Error(err.detail || 'Failed to save attempt to backend');
+      }
+    } catch (apiErr) {
+      console.warn('Failed to send attempt to backend:', apiErr);
+    }
+  } catch (err) {
+    alert('Failed to save attempt: ' + err);
+  }
+
+  state.lastAttemptId = attempt.attemptId;
+  state.view = 'complete';
+  render();
 }
 
 

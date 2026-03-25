@@ -1,5 +1,21 @@
 from pydantic import BaseModel, Field
-from typing import List, Optional, Union
+from typing import List, Optional, Union, Literal
+
+
+class PromptTextPart(BaseModel):
+    type: Literal["text"]
+    text: str
+
+
+class PromptMathPart(BaseModel):
+    type: Literal["math"]
+    format: Literal["latex"] = "latex"
+    source: str
+    display: Optional[Literal["inline", "block"]] = "inline"
+    altText: str
+
+
+PromptPart = Union[PromptTextPart, PromptMathPart]
 
 class AuthoringQuestion(BaseModel):
     id: str
@@ -14,6 +30,7 @@ class AuthoringQuestion(BaseModel):
     audioText: Optional[str] = None
     ttsStyle: Optional[str] = None
     imageSpec: Optional[str] = None
+    promptParts: Optional[List[PromptPart]] = None
 
 class AuthoringSection(BaseModel):
     id: str

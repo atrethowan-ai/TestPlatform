@@ -11,4 +11,10 @@ export default defineConfig({
       '@storage_indexeddb': path.resolve(__dirname, '../../packages/storage_indexeddb/src'),
     },
   },
+  server: {
+    proxy: {
+      // Forward all /api calls to the FastAPI local service
+      '/api': 'http://127.0.0.1:8000',
+    },
+  },
 });

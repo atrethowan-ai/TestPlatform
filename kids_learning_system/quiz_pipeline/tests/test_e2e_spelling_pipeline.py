@@ -280,4 +280,5 @@ if failed:
     for r in failed:
         print(f"    - {r['stage']}: {r.get('detail','')}")
 print("=" * 60)
-sys.exit(0 if not failed else 1)
+if __name__ == "__main__":
+    sys.exit(0 if not failed else 1)

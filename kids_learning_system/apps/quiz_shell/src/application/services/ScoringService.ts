@@ -1,4 +1,4 @@
-import { Quiz, Question } from '@shared_types/src/types/Quiz';
+import { Quiz, Question, QuizItem, QuizSection, StimulusSet } from '@shared_types/src/types/Quiz';
 
 export interface QuestionEvaluation {
   questionId: string;
@@ -24,8 +24,7 @@ export function scoreQuiz(quiz: Quiz, answers: Map<string, string>) {
     resultByQuestionId[r.questionId] = r;
   }
 
-  for (const section of quiz.sections) {
-    for (const q of section.questions) {
+  for (const q of getAllQuestions(quiz)) {
       total++;
       const evalResult = resultByQuestionId[q.id];
       if (evalResult?.isGradable) {
@@ -39,15 +38,14 @@ export function scoreQuiz(quiz: Quiz, answers: Map<string, string>) {
       }
 
       // Domain breakdown (if q.domain exists)
-      if ((q as any).domain) {
-        const d = (q as any).domain;
+      if (q.domain) {
+        const d = q.domain;
         if (!domainBreakdown[d]) domainBreakdown[d] = { correct: 0, total: 0 };
         domainBreakdown[d].total++;
         if (evalResult?.isGradable && evalResult.isCorrect) {
           domainBreakdown[d].correct++;
         }
       }
-    }
   }
 
   return {
@@ -65,28 +63,54 @@ export function getQuestionEvaluations(quiz: Quiz, answers: Map<string, string>)
   const evaluations: QuestionEvaluation[] = [];
   let questionNumber = 1;
 
-  for (const section of quiz.sections) {
-    for (const q of section.questions) {
-      const userAnswer = answers.get(q.id) ?? '';
-      const isGradable = q.type !== 'paragraph';
-      const isCorrect = isGradable ? isAnswerCorrect(q, userAnswer) : false;
+  for (const q of getAllQuestions(quiz)) {
+    const userAnswer = answers.get(q.id) ?? '';
+    const isGradable = q.type !== 'paragraph';
+    const isCorrect = isGradable ? isAnswerCorrect(q, userAnswer) : false;
 
-      evaluations.push({
-        questionId: q.id,
-        questionNumber,
-        prompt: q.prompt,
-        type: q.type,
-        correctAnswer: getCorrectAnswerText(q),
-        userAnswer,
-        isCorrect,
-        isGradable,
-      });
+    evaluations.push({
+      questionId: q.id,
+      questionNumber,
+      prompt: q.prompt,
+      type: q.type,
+      correctAnswer: getCorrectAnswerText(q),
+      userAnswer,
+      isCorrect,
+      isGradable,
+    });
 
-      questionNumber++;
-    }
+    questionNumber++;
   }
 
   return evaluations;
+}
+
+function getSectionItems(section: QuizSection): QuizItem[] {
+  return Array.isArray(section.items) ? section.items : section.questions;
+}
+
+function isStimulusSet(item: QuizItem): item is StimulusSet {
+  return item.type === 'stimulus_set';
+}
+
+function isStandardQuestion(item: QuizItem): item is Question {
+  return item.type !== 'stimulus_set' && item.type !== 'decision_tree';
+}
+
+function getAllQuestions(quiz: Quiz): Question[] {
+  const questions: Question[] = [];
+
+  for (const section of quiz.sections) {
+    for (const item of getSectionItems(section)) {
+      if (isStandardQuestion(item)) {
+        questions.push(item);
+      } else if (isStimulusSet(item)) {
+        questions.push(...item.questions);
+      }
+    }
+  }
+
+  return questions;
 }
 
 function isAnswerCorrect(question: Question, answer: string): boolean {

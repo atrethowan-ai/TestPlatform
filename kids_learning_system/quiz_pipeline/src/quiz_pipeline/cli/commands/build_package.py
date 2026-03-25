@@ -4,8 +4,24 @@ import logging
 import json
 import os
 import shutil
+from datetime import date, datetime
 from pathlib import Path
 from quiz_pipeline.package.quiz_packager import package_quiz
+
+
+DATE_FORMAT = "%Y-%m-%d"
+
+
+def _ensure_date_created(raw_date: object) -> str:
+    if isinstance(raw_date, str):
+        value = raw_date.strip()
+        if value:
+            try:
+                datetime.strptime(value, DATE_FORMAT)
+                return value
+            except ValueError:
+                pass
+    return date.today().strftime(DATE_FORMAT)
 
 
 def _resolve_input_path(raw_input: str, quiz_pipeline_root: Path) -> Path:
@@ -29,6 +45,10 @@ def _publish_runtime_quiz_and_media(runtime_quiz: dict, generated_dir: Path, pub
     runtime_json = generated_dir / quiz_id / f"{quiz_id}_runtime.json"
     if not runtime_json.exists():
         raise FileNotFoundError(f"Runtime JSON not found after packaging: {runtime_json}")
+
+    runtime_data = json.loads(runtime_json.read_text(encoding="utf-8"))
+    runtime_data["dateCreated"] = _ensure_date_created(runtime_data.get("dateCreated"))
+    runtime_json.write_text(json.dumps(runtime_data, indent=2, ensure_ascii=False), encoding="utf-8")
 
     public_dir.mkdir(parents=True, exist_ok=True)
     dist_dir.mkdir(parents=True, exist_ok=True)
@@ -71,6 +91,11 @@ def _refresh_manifest(public_dir: Path, dist_dir: Path) -> None:
                 "id": quiz_id,
                 "title": data.get("title", quiz_id),
                 "ageGroup": data.get("ageGroup") or data.get("ageBand") or "all",
+                "category": data.get("category", ""),
+                "subcategory": data.get("subcategory", ""),
+                "skill": data.get("skill", ""),
+                "difficulty_level": data.get("difficulty_level", 0),
+                "dateCreated": _ensure_date_created(data.get("dateCreated")),
                 "path": f"/{quiz_file.name}",
             }
         )

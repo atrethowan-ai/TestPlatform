@@ -6,6 +6,13 @@ build/
 *.log
 apps/quiz_shell/dist/
 
+# Unified generated artifact root
+var/**
+!var/.gitkeep
+!var/runs/.gitkeep
+!var/cache/.gitkeep
+!var/logs/.gitkeep
+
 # Large extraction assets and caches
 packages/quiz_ingestion/data/raw/**
 packages/quiz_layout_extractor/data/raw/**
@@ -14,3 +21,7 @@ packages/quiz_layout_extractor/data/raw_vlm_responses/**
 packages/quiz_layout_extractor/data/cleaned_vlm_responses/**
 packages/quiz_layout_extractor/data/merged_documents/**
 packages/quiz_layout_extractor/data/diagnostics/**/*.json
+
+# Extraction engine outputs and caches (NAPLAN, repair modules, pilot runs)
+packages/quiz_extraction_pilot/outputs/**
+packages/quiz_extraction_pilot/data/**

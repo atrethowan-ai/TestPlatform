@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from .routes.health import router as health_router
 from .routes.attempts import router as attempts_router
 from .routes.admin import router as admin_router
+from .routes.quizzes import router as quizzes_router
 from .config import settings
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
@@ -10,6 +11,18 @@ from fastapi import Request
 import os
 
 app = FastAPI(title="Quiz Local Service", version="0.1")
+LOCAL_BUILD_STAMP = "2026-03-18T18:20-firefox-debug"
+
+
+@app.middleware("http")
+async def disable_browser_cache(request: Request, call_next):
+    # Local dev service should always return fresh assets/data after GUI or content changes.
+    response = await call_next(request)
+    response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "0"
+    response.headers["X-Quiz-Build"] = LOCAL_BUILD_STAMP
+    return response
 
 # Allow CORS for admin API calls during development
 app.add_middleware(
@@ -24,6 +37,7 @@ app.add_middleware(
 app.include_router(health_router)
 app.include_router(attempts_router)
 app.include_router(admin_router)
+app.include_router(quizzes_router)
 
 # Serve static frontend
 frontend_dist = settings.FRONTEND_DIST_PATH.resolve()

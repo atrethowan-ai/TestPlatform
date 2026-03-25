@@ -69,6 +69,31 @@
   gap: 0.75rem;
 }
 
+.quiz-prompt {
+  line-height: 1.45;
+}
+
+.quiz-prompt-text {
+  white-space: pre-wrap;
+}
+
+.quiz-prompt-math-inline {
+  margin: 0 0.1rem;
+}
+
+.quiz-prompt-math-block {
+  display: block;
+  margin: 0.5rem 0;
+  overflow-x: auto;
+}
+
+.quiz-prompt-math-fallback {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  background: #f1f5f9;
+  border-radius: 6px;
+  padding: 0.05rem 0.25rem;
+}
+
 .audio-player-row {
   width: 100%;
 }

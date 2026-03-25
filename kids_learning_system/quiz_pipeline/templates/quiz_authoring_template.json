@@ -6,7 +6,7 @@
   "subcategory": "Word Problems",
   "skill": "Single-step problems",
   "difficulty_level": 4,
-  "dateCreated": "2026-01-01",
+  "dateCreated": "2026-03-18",
   "description": "A sample quiz demonstrating all supported authoring question types.",
   "sections": [
     {
@@ -17,6 +17,8 @@
           "id": "q1",
           "type": "multiple_choice",
           "prompt": "What is 2 + 2?",
+          "subcategory": "Addition & Subtraction",
+          "skill": "Basic addition facts",
           "choices": ["3", "4", "5"],
           "answerKey": "4",
           "domain": "arithmetic",
@@ -28,6 +30,8 @@
           "id": "q2",
           "type": "short_answer",
           "prompt": "What is the capital of France?",
+          "subcategory": "Word Problems",
+          "skill": "Single-step problems",
           "answerKey": "Paris",
           "domain": "geography"
         },
@@ -35,6 +39,8 @@
           "id": "q3",
           "type": "paragraph",
           "prompt": "Explain why the sky is blue.",
+          "subcategory": "Word Problems",
+          "skill": "Single-step problems",
           "answerKey": "Sample rubric answer.",
           "rubricRef": "writing_rubric_age9_v1",
           "domain": "science"
@@ -42,9 +48,11 @@
         {
           "id": "q4",
           "type": "audio_short_answer",
-          "prompt": "Spell the word 'elephant' after listening to the audio.",
+          "prompt": "Listen to the audio and type the correct spelling.",
+          "subcategory": "Number Sense",
+          "skill": "Counting",
           "answerKey": "elephant",
-          "audioText": "Please spell the word: elephant.",
+          "audioText": "Spell the word elephant, as in the elephant stomped around the garden",
           "ttsStyle": "neutral",
           "domain": "spelling"
         }

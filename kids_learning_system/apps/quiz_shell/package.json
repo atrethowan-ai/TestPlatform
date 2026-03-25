@@ -10,15 +10,16 @@
     "test": "vitest"
   },
   "dependencies": {
-    "shared_types": "*",
+    "idb": "^7.1.1",
+    "katex": "^0.16.38",
     "quiz_domain": "*",
+    "shared_types": "*",
     "storage_indexeddb": "*",
-    "zod": "^3.22.4",
-    "idb": "^7.1.1"
+    "zod": "^3.22.4"
   },
   "devDependencies": {
-    "vite": "^5.0.0",
     "typescript": "^5.3.3",
+    "vite": "^5.0.0",
     "vitest": "^1.0.0"
   }
 }
